@@ -5,11 +5,14 @@ import Preload from './states/Preload.js';
 import Tutorial3 from './states/Tutorial3.js';
 import Tutorial4 from './states/Tutorial4'
 import Autoshaping from './states/Autoshaping.js';
+import Final from './states/Final.js'
+
 
 
 
 var x  = window.innerWidth -15;
 var y =  window.innerHeight- 25;
+console.log(cond)
 
 
 
@@ -40,6 +43,7 @@ game.scene.add('Tutorial2', Tutorial2);
 game.scene.add('Tutorial3', Tutorial3);
 game.scene.add('Autoshaping', Autoshaping);
 game.scene.add('Tutorial4', Tutorial4);
+game.scene.add('Final',Final)
 
 
 game.scene.start('Preload');

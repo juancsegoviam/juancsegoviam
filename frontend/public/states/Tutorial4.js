@@ -224,9 +224,9 @@ export default class Tutorial extends Phaser.Scene
         fun++
       }
 
-      if(tutorial.cursors.left.isDown)
+      if(tutorial.cursors.right.isDown)
       {
-        a += 0.1;
+        a += 0.06;
         tutorial.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -234,9 +234,9 @@ export default class Tutorial extends Phaser.Scene
         };
       };
       
-      if(tutorial.cursors.right.isDown)
+      if(tutorial.cursors.left.isDown)
       {
-        a -= 0.1;
+        a -= 0.06;
         tutorial.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {

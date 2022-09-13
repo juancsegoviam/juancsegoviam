@@ -20,7 +20,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
-<% if(alert === false && start === true) { %>
+<% if(form === false) { %>
 
   <main class="container p-5">
     <div class='row'>
@@ -34,23 +34,30 @@
               <div class='form-group'>
                 <input
                   type='text'
-                  name="prolific"
+                  name="cond"
                   class='form-control'
-                  placeholder='Special ID'
+                  placeholder='Condición'
+                />
+              <div class='form-group'>
+                <input
+                  type='text'
+                  name="sujeto"
+                  class='form-control'
+                  placeholder='ID'
                 />
               <div class='form-group'>
                 <input
                   type='text'
                   name="name"
                   class='form-control'
-                  placeholder='Name'
+                  placeholder='Nombre'
                 />
                 <div class='form-group'>
                   <input
                     type='number'
                     name="age"
                     class='form-control'
-                    placeholder='Age'
+                    placeholder='Edad'
                   />
               </div>
               <button class='btn btn-primary btn-block'>
@@ -60,9 +67,8 @@
           </div>
         </div>
       </div>
-     
      <% }else{ %>
-      <% if(!start && alert) { %>
+      <% if( form === "incompleto"){ %>
         <main class="container p-5">
           <div class='row'>
               <div class='col-md-4 mx-auto'>
@@ -73,63 +79,24 @@
                   <form action="/" method="POST">
                     </div>
                     <div class='form-group'>
-                        <div class="alert alert-danger" role="alert">
-                          Antes de iniciar el experimento introduzca su información de participante
-                        </div> 
-                    
-                      <input
-                        type='text'
-                        name="prolific"
-                        class='form-control'
-                        placeholder='Special ID'
-                      />
-                
-                    <div class='form-group'>
-                      <input
-                        type='text'
-                        name="name"
-                        class='form-control'
-                        placeholder='Name'
-                      />
-                   
                       <div class='form-group'>
                         <input
-                          type='number'
-                          name="age"
+                          type='text'
+                          name="cond"
                           class='form-control'
-                          placeholder='Age'
+                          placeholder='Condición'
                         />
-                   
-                    </div>
-                    <button class='btn btn-primary btn-block'>
-                      Signin
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-
-        
-     
-          <% }else{ %> 
-            
-        <main class="container p-5">
-          <div class='row'>
-              <div class='col-md-4 mx-auto'>
-                <div class='card mt-4 text-center'>
-                  <h1 class='h4'>
-                    Login
-                  </h1>
-                  <form action="/" method="POST">
-                    </div>
-                    <div class='form-group'>
+                        <% if(user.cond == "fail") { %>
+                          <div class="alert alert-danger" role="alert">
+                            Introduzca la condición indicada por el investigador
+                          </div> 
+                          <% } %> 
               
                       <input
                         type='text'
-                        name="prolific"
+                        name="sujeto"
                         class='form-control'
-                        placeholder='Special ID'
+                        placeholder='ID'
                       />
                       <% if(user.prolific < 1) { %>
                       <div class="alert alert-danger" role="alert">
@@ -141,7 +108,7 @@
                         type='text'
                         name="name"
                         class='form-control'
-                        placeholder='Name'
+                        placeholder='Nombre'
                       />
                       <% if(user.name < 1) { %>
                         <div class="alert alert-danger" role="alert">
@@ -153,7 +120,7 @@
                           type='number'
                           name="age"
                           class='form-control'
-                          placeholder='Age'
+                          placeholder='Edad'
                         />
                         <% if(user.age < 18) { %>
                           <div class="alert alert-danger" role="alert">
@@ -168,11 +135,11 @@
                 </div>
               </div>
             </div>
-      
-           
-      
-                <% } %>
-                <% } %>
+
+      <% } %>
+
+   
+     <% } %>
 
     
   </main>

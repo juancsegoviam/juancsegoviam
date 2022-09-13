@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/frontend/styles/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cosmo/bootstrap.min.css">
+<!--- fuentes --->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    
+<% if(warning == true) { %>
+        <div class="alert alert-danger" role="alert">
+            Introduzca un código valido
+          </div> 
+        <% } %> 
+      <h1 align="center">
+        CONSENTIMIENTO INFORMADO
+    </h1>
+      <p align="center">
+        <img src="/images/UDG.png" alt="Escudo UDG" style="width:50px;height:68px;">
+        <b>Centro de estudios e investigaciones en comportamiento</b>
+        <img src="/images/CEIC.png" alt="Escudo CEIC" style="width:50x;height:50px;">
+    </p>
+      <p align="center"><b>Universidad de Guadalajara</b></p> 
+      <p>La presente investigación forma parte del proyecto de Doctorado. Con esto no se busca evaluar personalidad, inteligencia o memoria. </p>
+      <p>Antes de decidir si participas o no, debes conocer y comprender los siguientes apartados. Tienes absoluta libertad de preguntar sobre cualquier aspecto que te ayude a aclarar tus dudas. Te informamos que el cubículo y el equipo ha sido desinfectado lo mejor posible antes de tu llegada. Te pedimos que tengas en cuenta lo siguiente para comprender el proceso y, en caso de que desees participar, se te pedirá que firmes este documento.</p>
+      <p>Aclaraciones:
+        <ul>
+            <li>El estudio completo durará 1 sesión. La duración de la sesión será de aproximadamente 10 minutos. El programa en que trabajes te hará saber en qué momento finaliza tu participación en el estudio.</li>
+            <li>Las condiciones experimentales están pensadas para proteger tu integridad física y psicológica.</li>
+            <li>Se han tomado todas las precauciones necesarias para salvaguardar todos los datos que proporciones y sólo se utilizarán para fines de esta investigación. Los datos de identificación serán mantenidos en estricta confidencialidad por el grupo de investigadores responsables.</li>
+            <li>Tu decisión de participar en el estudio es completamente voluntaria por lo que no recibirás remuneración alguna. Podrás retirarte del estudio en el momento en que desees, concluyendo de forma definitiva con tu participación. Para ello es necesario que informes al investigador encargado, sin implicar para ti ningún tipo de consecuencia negativa.</li>
+        </ul>
+      </p>
+      <p>Para los fines de la investigación es importante no divulgar información al respecto de las tareas y los procedimientos llevados a cabo ya que podría verse afectada la participación de tus compañeros. </p>
+      <p>Si consideras que no hay dudas ni preguntas acerca de tu participación, y si así lo deseas, puedes firmar la Carta de Consentimiento Informado que forma parte de este documento.</p>
+      <p><b>Yo, <%= user.name %>, </b> he leído y comprendido la información anterior y mis preguntas han sido respondidas de forma satisfactoria. He sido informado y entiendo que los datos obtenidos en el estudio pueden ser publicados o difundidos con fines científicos. Convengo en participar voluntariamente en la investigación “Discriminación de patrones negativos y positivos”, que he leído y comprendido la información señalada en este formato de consentimiento, y que estoy de acuerdo con las condiciones establecidas en el mismo. </p>
+      <p align="center"><b>Guadalajara, Jalisco a <%=day%> del mes <%=month%> del año <%=year%></b>  </p>
+      <form action="/consent" method="POST">
+        <div align="center" class="buttons">
+
+            <div class="action_btn">
+
+
+            <button name="consent" class="action_btn submit" type="submit" value="Accepto" >Accepto</button>
+            <button name="consent" class="action_btn cancel" type="submit" value="Cancelo">No accepto</button>
+
+         
+
+            </div>
+
+        </div>
+      </form>
+       
+    
+</body>
+</html>

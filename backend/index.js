@@ -3,6 +3,7 @@ if(process.env.NODE_ENV != 'production'){
     console.log(process.env.PORT)
     }
     const express = require('express');
+    const ejs = require('ejs');
     
     ///Intializations
     

@@ -42,14 +42,16 @@ var limit2 = 0;
 var end = 0;
 
 let pass = 0;
+let test = 0;
 
 var dataMatrix = {
-  puntos:{},
+  puntos: "no puntos",
   tiempo:[],
   evento:[],
 };
 
-const listIti = [10000];
+const listIti = [1000,1000,1000];
+const listP = [1000,1000,1000]
 const stiDur = 3000; 
 const reiDur = 3000;
 //anterogrado = 1, retrogrado = 2
@@ -198,7 +200,7 @@ export default class Autoshaping extends Phaser.Scene
            gameState.score += 10; 
            gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);  
            dataMatrix.puntos = gameState.score;
-           console.log(gameState.score)
+           console.log(dataMatrix.puntos)
            
            
           });
@@ -214,7 +216,7 @@ export default class Autoshaping extends Phaser.Scene
             dataMatrix.evento.push('rSM');
            });
 
-          this.timer();
+          this.timerAdq();
     }
 
     update(time,delta)
@@ -231,9 +233,9 @@ export default class Autoshaping extends Phaser.Scene
 
         //Declara a donde estará apuntanto el sujeto 
         gameState.player.setRotation(Phaser.Math.Angle.Between(gameState.point.x, gameState.point.y, gameState.player.x, gameState.player.y) - Math.PI / 2);
-      if(gameState.cursors.left.isDown)
+      if(gameState.cursors.right.isDown)
       {
-        a += 0.1;
+        a += 0.06;
         gameState.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -241,9 +243,9 @@ export default class Autoshaping extends Phaser.Scene
         };
       };
       
-      if(gameState.cursors.right.isDown)
+      if(gameState.cursors.left.isDown)
       {
-        a -= 0.1;
+        a -= 0.06;
         gameState.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -312,6 +314,114 @@ export default class Autoshaping extends Phaser.Scene
 
 
 
+    timerAdq() 
+    {
+      initTime = new Date().getTime();
+      console.log(initTime)
+        var that = this
+        
+
+        intervol = setInterval(function () {
+          for (var i = 0; i < 10000; i++) 
+          {
+            // YOUR CODE
+            elapsedTime = new Date().getTime() -initTime;
+  
+          
+            if(par == 0)
+            {
+              
+              index = Math.floor(Math.random() * listIti.length);
+              iti = listIti[index];
+              if(arreglo == 1) 
+              {
+                startS = iti ;
+                endS = startS + stiDur;
+                startR = iti + dem;
+                endR = startR + reiDur;
+                end = endR
+                
+              }
+              else if(arreglo == 2)
+              {
+                startS = iti + dem;
+                endS = startS + stiDur;
+                startR = iti ;
+                endR = startR + reiDur;
+                end = endS
+              }
+              par = 1;
+              
+            }
+            if(elapsedTime < iti)
+            {
+              gameState.sti.play('hit', true);
+              gameState.cent.play('hit', true);
+            }
+            if(elapsedTime > startS-1 && limit1 == 0)
+            {
+              that.ecStart()
+              limit1 = 1;
+            }
+            else if(elapsedTime > endS-1 && limit1 == 1)
+            {
+              that.ecEnd()
+             
+              limit1 = 2;
+              
+            }
+            else if(elapsedTime > startR-1 && limit2 == 0)
+            {
+              that.reinStart()
+              limit2 = 1;
+
+            }
+            else if(elapsedTime > endR-1 && limit2 == 1)
+            {
+              that.reinEnd();
+              limit2 = 2;
+            }
+            else if(elapsedTime >= end)
+            {
+              limit1 = 0;
+              limit2 = 0;
+              initTime = new Date().getTime();
+              pass++;
+              par = 0
+              if(pass == ensayos)
+              {
+                
+                toString(dataMatrix.puntos)
+    
+                const options = {
+                  method: "POST",
+                  header: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({"start_experiment":initTime, "end_experiment": new Date().getTime(),"puntos": dataMatrix.puntos,"evento": dataMatrix.evento, "tiempo": dataMatrix.tiempo}),
+                };
+            
+                fetch('/experiment', options);
+
+              
+              
+                
+                clearInterval(intervol);
+                that.scene.start('Final');
+                that.scene.stop('Autoshaping');
+                
+                console.log(dataMatrix)
+                console.log('ya estuvo');
+              }
+            }
+
+            
+    
+          }
+      }, 1/1000);
+       
+    }
+
     timer() 
     {
       initTime = new Date().getTime();
@@ -351,7 +461,7 @@ export default class Autoshaping extends Phaser.Scene
               par = 1;
               
             }
-            if(elapsedTime <iti)
+            if(elapsedTime < iti)
             {
               gameState.sti.play('hit', true);
               gameState.cent.play('hit', true);
@@ -388,7 +498,7 @@ export default class Autoshaping extends Phaser.Scene
               par = 0
               if(pass == ensayos)
               {
-                that.scene.stop('Experimento');
+                
                 toString(dataMatrix.puntos)
     
                 const options = {
@@ -398,10 +508,15 @@ export default class Autoshaping extends Phaser.Scene
                   },
                   body: JSON.stringify({"start_experiment":initTime, "end_experiment": new Date().getTime(),"puntos": dataMatrix.puntos,"evento": dataMatrix.evento, "tiempo": dataMatrix.tiempo}),
                 };
-
+            
                 fetch('/experiment', options);
+
+              
+              
                 
                 clearInterval(intervol);
+                that.scene.start('Final');
+                that.scene.stop('Autoshaping');
                 
                 console.log(dataMatrix)
                 console.log('ya estuvo');
@@ -414,6 +529,7 @@ export default class Autoshaping extends Phaser.Scene
       }, 1/1000);
        
     }
+
 
 
 }

@@ -83,7 +83,7 @@ export default class Tutorial extends Phaser.Scene{
       tutorial.c1.base.setMask(tutorial.c1.bMask);
       tutorial.c1.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
       tutorial.c1.base.setMask(tutorial.c1.bMask2);
-      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect(x/16, y/16, 375 * ratiox, 240 * ratioy);
+      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect((x/256)*1, y/18, 450 * ratiox, 400 * ratioy);
       tutorial.c1.button = new BlankButton(this, x/2 , (y/256 * 150), 'button1','button2', 'button3', 'Continuar', con).setScale(ratio);
       this.add.existing(tutorial.c1.button);
       tutorial.c1.tTxt = new Txt(this,x/2 + (x/256 * 5), (y/256 * 105) ,txt3,x,y, 'h2', 31);

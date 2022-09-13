@@ -15,16 +15,16 @@ export default class Txt extends Phaser.GameObjects.Text
 
         if(type === 'h1') 
         {
-            size = screenx * .032
+            size = screenx * .045
 
         }
         else if(type === 'h2')
         {
-            size = screeny * .03
+            size = screeny * .035
         }
         else if(type === 'p')
         {
-            size = screeny * .02
+            size = screeny * .03
         }
 
         if(align == 'center')
