@@ -1,4 +1,5 @@
-import { gameState, world } from "../consts/Const";
+import { gameState, world, holo, Bullet } from "../consts/Const";
+import {Player} from "../consts/object.js"
 import {txt9 } from "../consts/txt";
 
 //Objetos
@@ -37,35 +38,47 @@ var startR;
 var endS;
 var endR;
 var par = 0;
+var par2 = 0;
 var limit1 = 0;
 var limit2 = 0;
 var end = 0;
 
 let pass = 0;
 let test = 0;
+let fase;
+let hola = '123456'
 
 var dataMatrix = {
   puntos: "no puntos",
-  tiempo:[],
+  tiempoT:[],
+  tiempoE:[],
   evento:[],
+  fase:[]
 };
 
 const listIti = [1000,1000,1000];
-const listP = [1000,1000,1000]
+const listP = [1000,1000,1000,100]
 const stiDur = 3000; 
 const reiDur = 3000;
 //anterogrado = 1, retrogrado = 2
 const arreglo = 1;
 const dem = 3000;
-const ensayos = listIti.length
+const ensayos = listIti.length;
+const pruebas = listP.length;
 
 export default class Autoshaping extends Phaser.Scene
 {
     create()
     {
+      Player
+
+     
+
         initTime = new Date().getTime();
         trialTime = new Date().getTime();
+
         gameState.player = this.physics.add.image(x/2,y/2, 'player').setDisplaySize(104 * ratio,104 * ratio);
+
         gameState.point = new Phaser.Geom.Rectangle(0, 0, 16, 16);
         gameState.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
         gameState.circle1 = new Phaser.Geom.Circle(x/2,y/2, 130 * ratio);
@@ -109,52 +122,7 @@ export default class Autoshaping extends Phaser.Scene
 
         gameState.sti.play('cent', true);
 
-        var Bullet = new Phaser.Class({
-            Extends: Phaser.GameObjects.Image,
-            
-            initialize:
-            //aquí las funciones declaran en que lugar va estar y que velocidad va ser disparada 
-            function Bullet (scene)
-            {
-              Phaser.GameObjects.Image.call(this, scene, gameState.player.x, gameState.player.y, 'bullet');
-              this.setScale(0.2)
-              this.incX = 0;
-              this.incY = 0;
-              this.lifespan = 0;
-              this.speed = Phaser.Math.GetSpeed(600, 1);
-            },
-            // aquí declara si está visible el disparo y sí está activo
-            fire: function (x, y)
-            {
-              this.setActive(true);
-              this.setVisible(true);
-              this.rotation = gameState.player.rotation;
-              
-              //  los disparos estarán en función de la posición del jugador 
-              this.setPosition(gameState.player.x, gameState.player.y);
-              
-              // El angulo de disparo será entre x y la x del jugador (trayectora)
-              var angle = Phaser.Math.Angle.Between(x, y, gameState.player.x, gameState.player.y);
-              this.incX = Math.cos(angle);
-              this.incY = Math.sin(angle);
-              
-              //Esta parte del codigo es solo cuando se quiera que el disparo sea contino (contante con el input) y no discreto
-              this.lifespan = 500;
-              },
-              
-            update: function (time, delta)
-            {
-              this.lifespan -= delta;
-              this.x -= this.incX * (this.speed * delta);
-              this.y -= this.incY * (this.speed * delta);
-              
-              if (this.lifespan <=  0)
-              {
-                this.setActive(false);
-                this.setVisible(false);
-              }
-            }
-            });
+        
           bullets = this.physics.add.group(
             {
               classType: Bullet,
@@ -168,10 +136,11 @@ export default class Autoshaping extends Phaser.Scene
          bullet.destroy();
          stimuli.play('hit', true);
          setTimeout(function(){ stimuli.play('normal', true) }, 100);
-         dataMatrix.tiempo.push(elapsedTime);
+         dataMatrix.tiempoE.push(elapsedTime);
          dataMatrix.evento.push('rCon');
          console.log('respo Co')
          console.log(dataMatrix);
+         dataMatrix.fase.push(fase)
            
          
         });
@@ -183,10 +152,11 @@ export default class Autoshaping extends Phaser.Scene
             stimuli.play('hit', true);
             bullet.destroy();
             console.log(elapsedTime);
-            dataMatrix.tiempo.push(elapsedTime);
+            dataMatrix.tiempoE.push(elapsedTime);
             dataMatrix.evento.push('rOr');
             console.log('respo Or')
             console.log(dataMatrix)   
+            dataMatrix.fase.push(fase)
          });
 
          gameState.centAct = this.physics.add.collider(gameState.cent, bullets, (reinforcer,bullet) => 
@@ -195,12 +165,13 @@ export default class Autoshaping extends Phaser.Scene
            reinforcer.play('hit', true);
            setTimeout(function(){ reinforcer.play('normal', true) }, 100);
            console.log(elapsedTime);
-           dataMatrix.tiempo.push(elapsedTime);
+           dataMatrix.tiempoE.push(elapsedTime);
            dataMatrix.evento.push('rIn');
            gameState.score += 10; 
            gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);  
            dataMatrix.puntos = gameState.score;
            console.log(dataMatrix.puntos)
+           dataMatrix.fase.push(fase)
            
            
           });
@@ -212,11 +183,13 @@ export default class Autoshaping extends Phaser.Scene
             reinforcer.play('hit', true);
             bullet.destroy();
             console.log(elapsedTime);
-            dataMatrix.tiempo.push(elapsedTime);
+            dataMatrix.tiempoE.push(elapsedTime);
             dataMatrix.evento.push('rSM');
+            dataMatrix.fase.push(fase)
            });
 
-          this.timerAdq();
+         
+          this.timer();
     }
 
     update(time,delta)
@@ -264,24 +237,27 @@ export default class Autoshaping extends Phaser.Scene
       };
     }
 
-    ecStart()
+    ecStart(fase)
     {
       console.log("hola mundo");
-      dataMatrix.tiempo.push(elapsedTime);
+      dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('ECstart');
+      dataMatrix.fase.push(fase)
       console.log(dataMatrix)
          
       gameState.ecDeact.active = false;
       gameState.sti.play('normal', true);
       gameState.ecAct.active = true;
+  
     }
 
-    ecEnd()
+    ecEnd(fase)
     {
       gameState.ecAct.active = false;
       gameState.ecDeact.active = true;
-      dataMatrix.tiempo.push(elapsedTime);
+      dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('ECend');
+      dataMatrix.fase.push(fase)
        
       console.log(Date.now() -initTime);
       gameState.sti.play('hit', true);
@@ -289,10 +265,11 @@ export default class Autoshaping extends Phaser.Scene
 
     }
 
-    reinStart()
+    reinStart(fase)
     {
-      dataMatrix.tiempo.push(elapsedTime);
+      dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('RStart');
+      dataMatrix.fase.push(fase)
         
       console.log(Date.now() - initTime)
       gameState.centDeact.active = false;
@@ -300,10 +277,13 @@ export default class Autoshaping extends Phaser.Scene
       gameState.centAct.active = true;
     }
 
-    reinEnd()
+    reinEnd(fase)
     {
-      dataMatrix.tiempo.push(elapsedTime);
+      dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('rEnd');
+      dataMatrix.fase.push(fase)
+      
+
       console.log(Date.now() -initTime);
       gameState.cent.play('hit', true);
       gameState.centAct.active = false;
@@ -314,129 +294,22 @@ export default class Autoshaping extends Phaser.Scene
 
 
 
-    timerAdq() 
-    {
-      initTime = new Date().getTime();
-      console.log(initTime)
-        var that = this
-        
-
-        intervol = setInterval(function () {
-          for (var i = 0; i < 10000; i++) 
-          {
-            // YOUR CODE
-            elapsedTime = new Date().getTime() -initTime;
-  
-          
-            if(par == 0)
-            {
-              
-              index = Math.floor(Math.random() * listIti.length);
-              iti = listIti[index];
-              if(arreglo == 1) 
-              {
-                startS = iti ;
-                endS = startS + stiDur;
-                startR = iti + dem;
-                endR = startR + reiDur;
-                end = endR
-                
-              }
-              else if(arreglo == 2)
-              {
-                startS = iti + dem;
-                endS = startS + stiDur;
-                startR = iti ;
-                endR = startR + reiDur;
-                end = endS
-              }
-              par = 1;
-              
-            }
-            if(elapsedTime < iti)
-            {
-              gameState.sti.play('hit', true);
-              gameState.cent.play('hit', true);
-            }
-            if(elapsedTime > startS-1 && limit1 == 0)
-            {
-              that.ecStart()
-              limit1 = 1;
-            }
-            else if(elapsedTime > endS-1 && limit1 == 1)
-            {
-              that.ecEnd()
-             
-              limit1 = 2;
-              
-            }
-            else if(elapsedTime > startR-1 && limit2 == 0)
-            {
-              that.reinStart()
-              limit2 = 1;
-
-            }
-            else if(elapsedTime > endR-1 && limit2 == 1)
-            {
-              that.reinEnd();
-              limit2 = 2;
-            }
-            else if(elapsedTime >= end)
-            {
-              limit1 = 0;
-              limit2 = 0;
-              initTime = new Date().getTime();
-              pass++;
-              par = 0
-              if(pass == ensayos)
-              {
-                
-                toString(dataMatrix.puntos)
-    
-                const options = {
-                  method: "POST",
-                  header: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({"start_experiment":initTime, "end_experiment": new Date().getTime(),"puntos": dataMatrix.puntos,"evento": dataMatrix.evento, "tiempo": dataMatrix.tiempo}),
-                };
-            
-                fetch('/experiment', options);
-
-              
-              
-                
-                clearInterval(intervol);
-                that.scene.start('Final');
-                that.scene.stop('Autoshaping');
-                
-                console.log(dataMatrix)
-                console.log('ya estuvo');
-              }
-            }
-
-            
-    
-          }
-      }, 1/1000);
-       
-    }
-
     timer() 
     {
       initTime = new Date().getTime();
-      console.log(initTime)
-        var that = this
+      console.log(new Date(initTime))
+      var that = this
         
 
         intervol = setInterval(function () {
           for (var i = 0; i < 10000; i++) 
           {
             // YOUR CODE
+            fase = "Adq";
             elapsedTime = new Date().getTime() -initTime;
-  
-          
-            if(par == 0)
+            if(fase == "Adq")
+            {
+              if(par == 0)
             {
               
               index = Math.floor(Math.random() * listIti.length);
@@ -468,6 +341,78 @@ export default class Autoshaping extends Phaser.Scene
             }
             if(elapsedTime > startS-1 && limit1 == 0)
             {
+              that.ecStart(fase)
+              limit1 = 1;
+            }
+            else if(elapsedTime > endS-1 && limit1 == 1)
+            {
+              that.ecEnd(fase)
+             
+              limit1 = 2;
+              
+            }
+            else if(elapsedTime > startR-1 && limit2 == 0)
+            {
+              that.reinStart(fase)
+              limit2 = 1;
+
+            }
+            else if(elapsedTime > endR-1 && limit2 == 1)
+            {
+              that.reinEnd(fase);
+              limit2 = 2;
+            }
+            else if(elapsedTime >= end)
+            {
+              limit1 = 0;
+              limit2 = 0;
+              initTime = new Date().getTime();
+              pass++;
+              par = 0
+              if(pass == ensayos)
+              {
+               
+                fase = "Test";
+               
+              }
+            }
+
+            } else if(fase == "Test"){
+              console.log(fase)
+              index = Math.floor(Math.random() * listP.length);
+              iti = listIti[index];
+              if(par2 == 0)
+            {
+              
+              index = Math.floor(Math.random() * listIti.length);
+              iti = listIti[index];
+              if(arreglo == 1) 
+              {
+                startS = iti ;
+                endS = startS + stiDur;
+                startR = iti + dem;
+                endR = startR + reiDur;
+                end = endR
+                
+              }
+              else if(arreglo == 2)
+              {
+                startS = iti + dem;
+                endS = startS + stiDur;
+                startR = iti ;
+                endR = startR + reiDur;
+                end = endS
+              }
+              par2 = 1;
+              
+            }
+            if(elapsedTime < iti)
+            {
+              gameState.sti.play('hit', true);
+              gameState.cent.play('hit', true);
+            }
+            if(elapsedTime > startS-1 && limit1 == 0)
+            {
               that.ecStart()
               limit1 = 1;
             }
@@ -480,13 +425,13 @@ export default class Autoshaping extends Phaser.Scene
             }
             else if(elapsedTime > startR-1 && limit2 == 0)
             {
-              that.reinStart()
+             
               limit2 = 1;
 
             }
             else if(elapsedTime > endR-1 && limit2 == 1)
             {
-              that.reinEnd();
+             
               limit2 = 2;
             }
             else if(elapsedTime >= end)
@@ -494,10 +439,11 @@ export default class Autoshaping extends Phaser.Scene
               limit1 = 0;
               limit2 = 0;
               initTime = new Date().getTime();
-              pass++;
+              test++;
               par = 0
-              if(pass == ensayos)
+              if(test == pruebas)
               {
+                
                 
                 toString(dataMatrix.puntos)
     
@@ -506,7 +452,7 @@ export default class Autoshaping extends Phaser.Scene
                   header: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({"start_experiment":initTime, "end_experiment": new Date().getTime(),"puntos": dataMatrix.puntos,"evento": dataMatrix.evento, "tiempo": dataMatrix.tiempo}),
+                  body: JSON.stringify({"start_experiment":initTime, "end_experiment": new Date().getTime(),"puntos": dataMatrix.puntos,"evento": dataMatrix.evento, "tiempo": dataMatrix.tiempoE, "fase": dataMatrix.fase}),
                 };
             
                 fetch('/experiment', options);
@@ -522,6 +468,14 @@ export default class Autoshaping extends Phaser.Scene
                 console.log('ya estuvo');
               }
             }
+            
+              
+
+            }
+            
+  
+          
+            
 
             
     
@@ -529,6 +483,13 @@ export default class Autoshaping extends Phaser.Scene
       }, 1/1000);
        
     }
+
+    timerTst(){
+
+
+    }
+
+    
 
 
 

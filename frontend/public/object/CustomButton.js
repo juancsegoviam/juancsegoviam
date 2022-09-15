@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export default class CustomButton extends Phaser.GameObjects.Container 
+export default class CustomButton extends Phaser.GameObjects
 {
   
     constructor(scene , x, y , normalTexture, overTexture, clickTexture , text, next )

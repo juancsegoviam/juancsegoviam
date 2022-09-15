@@ -9,6 +9,6 @@ export default class Final extends Phaser.Scene
 {
     create()
     {
-        gameState.tTxt =  new Txt(this, x/2 + (x/256 * 22) ,y/2 ,txt11,x,y, 'h1', 31, 'center');
+        gameState.tTxt =  new Txt(this, x/2 + (x/256 * 10) ,y/2 ,txt11,x,y, 'h1', 31, 'center');
     }
 }

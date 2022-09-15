@@ -53,7 +53,7 @@ export default class Preload extends Phaser.Scene{
     create()
     {
       
-        tutorial.btn1 = this.add.existing(new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', 'Tutorial').setScale(ratio));
+        tutorial.btn1 = this.add.existing(new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', 'Autoshaping').setScale(ratio));
         tutorial.txt1 = new Txt(this, tutorial.btn1.x , tutorial.btn1.y - ((tutorial.btn1.height * ratio)*2.0) ,txt1,x,y, 'h2', 31, 'right')
     };
 }

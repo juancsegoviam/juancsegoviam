@@ -87,7 +87,7 @@ router.post("/consent", async(req,res) => {
 
     if(con === 'Accepto' ) {
         req.session.start = true
-        await Subject.findOneAndUpdate({prolific:user.prolific},
+        await Subject.findOneAndUpdate({sujeto: user.sujeto},
             { consent: con})
     
         
@@ -121,12 +121,13 @@ router.get("/experiment", async(req,res) => {
 
 router.post("/experiment", async(req,res) => {
     user = req.session.user
-    const {puntos, evento, tiempo, start_experiment, end_experiment} = req.body
-    await Subject.findOneAndUpdate({prolific: user.prolific},
+    const {puntos, evento, tiempo, fase, start_experiment, end_experiment} = req.body
+    await Subject.findOneAndUpdate({sujeto: user.sujeto},
         {
             puntos: puntos,
             tiempo: tiempo,
             evento: evento,
+            fase: fase,
             start_experiment: start_experiment,
             end_experiment: end_experiment }),
             console.log(puntos,evento, tiempo + " posting");
