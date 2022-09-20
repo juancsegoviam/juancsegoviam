@@ -1,6 +1,6 @@
 import { gameState, world, holo, Bullet } from "../consts/Const";
 
-import {txt9, txt13 } from "../consts/txt";
+import {txt9, txt12 } from "../consts/txt";
 
 //Objetos
 import Txt from "../object/Txt";
@@ -67,7 +67,8 @@ const dem = 3000;
 const ensayos = listIti.length;
 const pruebas = listP.length;
 
-export default class Autoshaping extends Phaser.Scene
+
+export default class TSRC extends Phaser.Scene
 {
     create()
     {
@@ -92,8 +93,8 @@ export default class Autoshaping extends Phaser.Scene
         Phaser.Geom.Circle.CircumferencePoint(gameState.circle2, 5, gameState.cent);
         
         
-        gameState.tTxt3 =  new Txt(this,x/2 + (x/256 * 22) ,y/2 ,txt9,x,y, 'h2', 31, 'center');
-  
+        gameState.tTxt3 =  new Txt(this,x/2 + (x/256 * 22) ,y/2,txt9,x,y, 'h2', 31, 'center');
+        gameState.point2 = new Phaser.Geom.Rectangle(x/2, y/2, 16, 16);
         
         gameState.sti.anims.create(
             {
@@ -173,25 +174,11 @@ export default class Autoshaping extends Phaser.Scene
            console.log(elapsedTime);
            dataMatrix.tiempoE.push(elapsedTime);
            dataMatrix.evento.push('rIn');
-           gameState.score += 10; 
-           gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);  
-           dataMatrix.puntos = gameState.score;
-           console.log(dataMatrix.puntos)
-           dataMatrix.fase.push(fase)
-
-           gameState.tTxt4 =  new Txt(this, gameState.cent.x  , gameState.cent.y ,txt13,x,y, 'h2', 31, 'center');
-
-           Phaser.Geom.Circle.CircumferencePoint(gameState.circle2, 5,  gameState.tTxt4.txt);
-     
-           this.tweens.add({
-             targets: gameState.tTxt4.txt,
-             y: gameState.tTxt4.txt.y - 100,
-             ease: 'Power1',
-             duration: 2000,
-             delay: 500,
-             yoyo: false,
-             repeat: 0
-         });
+           //gameState.score += 10; 
+           //gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);  
+        //    dataMatrix.puntos = gameState.score;
+        //    console.log(dataMatrix.puntos)
+        //    dataMatrix.fase.push(fase)
            
            
           });
@@ -207,6 +194,20 @@ export default class Autoshaping extends Phaser.Scene
             dataMatrix.evento.push('rSM');
             dataMatrix.fase.push(fase)
            });
+
+           
+
+       
+
+        
+
+
+          
+
+           
+
+
+      
 
          fase = "Adq"
           this.timer();
@@ -229,7 +230,7 @@ export default class Autoshaping extends Phaser.Scene
         gameState.player.setRotation(Phaser.Math.Angle.Between(gameState.point.x, gameState.point.y, gameState.player.x, gameState.player.y) - Math.PI / 2);
       if(gameState.cursors.right.isDown)
       {
-        a += 0.03;
+        a += 0.06;
         gameState.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -239,7 +240,7 @@ export default class Autoshaping extends Phaser.Scene
       
       if(gameState.cursors.left.isDown)
       {
-        a -= 0.03;
+        a -= 0.06;
         gameState.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -296,6 +297,27 @@ export default class Autoshaping extends Phaser.Scene
       gameState.centDeact.active = false;
       gameState.cent.play('normal', true);
       gameState.centAct.active = true;
+      gameState.score += 100; 
+      gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);
+      dataMatrix.puntos = gameState.score;
+      console.log(dataMatrix.puntos)
+      dataMatrix.fase.push(fase) ;
+
+      gameState.tTxt4 =  new Txt(this, gameState.cent.x  , gameState.cent.y ,txt12,x,y, 'h2', 31, 'center');
+
+      Phaser.Geom.Circle.CircumferencePoint(gameState.circle2, 5,  gameState.tTxt4.txt);
+
+      this.tweens.add({
+        targets: gameState.tTxt4.txt,
+        y: gameState.tTxt4.txt.y - 100,
+        ease: 'Power1',
+        duration: 2000,
+        delay: 500,
+        yoyo: false,
+        repeat: 0
+    });
+    
+      
     }
 
     reinEnd(fase)
@@ -309,6 +331,8 @@ export default class Autoshaping extends Phaser.Scene
       gameState.cent.play('hit', true);
       gameState.centAct.active = false;
       gameState.centDeact.active = true;
+      gameState.tTxt4.txt.destroy();
+ 
 
     }
 
@@ -513,6 +537,3 @@ export default class Autoshaping extends Phaser.Scene
 
 
 }
-
-
-

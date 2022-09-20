@@ -48,14 +48,14 @@ export default class Tutorial extends Phaser.Scene
       tutorial.circle2 = new Phaser.Geom.Circle(x/2,y/2, 400 * ratio);
       tutorial.cent1 = this.physics.add.sprite(752,100,'cent').setDisplaySize(80 * ratio, 80 * ratio);
       
-      tutorial.cent2 = this.physics.add.sprite(x/16 + (x/256 * 42), y/16 + (y/256 * 20),'cent ').setDisplaySize(40 * ratio, 40 * ratio);
+      tutorial.cent2 = this.physics.add.sprite((x/256 * 70), (y/256 * 10),'cent ').setDisplaySize(40 * ratio, 40 * ratio);
       Phaser.Geom.Circle.CircumferencePoint(tutorial.circle2, 4.7, tutorial.cent1);
 
       //Instrucciones
       tutorial.tTxt1 = new Txt(this, tutorial.cent2.x - (x/256 * 5) , tutorial.cent2.y +(y/256 * 2)  ,txt7,x,y, 'h2', 31, 'center');
       tutorial.tTxt2 = new Txt(this, tutorial.cent2.x - (x/256 * 6) , tutorial.cent2.y +(y/256 * 20)  ,txt8,x,y, 'h2', 31, 'center');
       tutorial.tTxt3 =  new Txt(this, tutorial.cent2.x - (x/256 * 5) , tutorial.cent2.y +(y/256 * 40)  ,txt9,x,y, 'h2', 31, 'center');
-      tutorial.tTxt4 =  new Txt(this, x/2 + (x/256 * 22) ,y/2 ,txt9,x,y, 'h2', 31, 'center');
+      tutorial.tTxt4 =  new Txt(this, x/2 ,y/2 ,txt9,x,y, 'h2', 31, 'center');
       
 
 
@@ -105,7 +105,7 @@ export default class Tutorial extends Phaser.Scene
       tutorial.c1.base.setMask(tutorial.c1.bMask);
       tutorial.c1.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
       tutorial.c1.base.setMask(tutorial.c1.bMask2);
-      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect(x/16, y/16, 375 * ratiox, 240 * ratioy);
+      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect((x/256 * 5), (y/256 * 0), 650 * ratiox, (240 * ratioy));
       tutorial.c1.button = new BlankButton(this, x/2 , (y/256 * 150), 'button1','button2', 'button3', 'Continuar',  con).setScale(ratio);
       this.add.existing(tutorial.c1.button);
       tutorial.c1.tTxt = new Txt(this,x/2 + (x/256 * 5), (y/256 * 105) ,txt3,x,y, 'h2', 31);
@@ -275,7 +275,7 @@ if(cont === 1)
       this.add.existing(button)
         
     
-      tutorial.cc.txt = new Txt(this, button.x - (x/256 * 3) , button.y - ((button.height * ratio)*2.0) ,txt10,x,y, 'h2', 31, 'right')
+      tutorial.cc.txt = new Txt(this, button.x - (x/256 * 3) , button.y - ((button.height * ratioy)*3.0) ,txt10,x,y, 'h2', 31, 'right')
     }
 
     

@@ -35,7 +35,7 @@ router.post("/", async (req,res) => {
     user = req.session.user;
     
     let {cond, sujeto, name, age} = req.body;
-    if(!(user.cond == "me" || user.cond == "mc" || user.cond == "te" || user.cond == "tc"  )) {
+    if(!(user.cond == "TRC" || user.cond == "TSRC"  )) {
         user.cond = "fail"
         form = "incompleto";
         res.render("index", {

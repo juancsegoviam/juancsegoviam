@@ -1,4 +1,4 @@
-import phasre from "phaser";
+import Phaser from "phaser";
 
 export default class Txt extends Phaser.GameObjects.Text
 {

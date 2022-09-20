@@ -5,7 +5,7 @@ const SubjectSchema= new Schema({
     sujeto: {type: String},
     name: {type: String},
     age: {type: String},
-    fase: {type: String},
+    fase: {type: Array, default: ['without data']},
     concent: {type: String},
     created_at: {type: String, default: Date.now},
     start_experiment: {type: String, default: "No data"},

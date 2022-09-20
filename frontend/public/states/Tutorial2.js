@@ -46,12 +46,12 @@ export default class Boot extends Phaser.Scene{
       tutorial.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: "#FF0000" }});
       tutorial.circle1 = new Phaser.Geom.Circle(x/2,y/2, 130 * ratio);
       tutorial.circle2 = new Phaser.Geom.Circle(x/2,y/2, 400 * ratio);
-      tutorial.teclaD = this.physics.add.sprite(x/16 + (x/256 * 42), y/16 + (y/256 * 20), 'teclaD').setScale(ratio)
+      tutorial.teclaD = this.physics.add.sprite((x/256 * 70), (y/256 * 10), 'teclaD').setScale(ratio)
 
       //Instrucciones
       tutorial.tTxt1 = new Txt(this, tutorial.teclaD.x - (tutorial.teclaD.width/3) , tutorial.teclaD.y +(y/256 * 5)  ,txt5,x,y, 'h2', 31, 'center');
       tutorial.tTxt2 = new Txt(this, tutorial.tTxt1.x - (x/256 * 5), tutorial.teclaI.y +(y/256 * 25)  ,txt4,x,y, 'h2', 31, 'center');
-      tutorial.rect = this.add.rectangle( x/16 + (x/256 * 25), y/16 + (y/256 * 60), 220, 40, 0x808080);
+      tutorial.rect = this.add.rectangle((x/256 * 50), y/16 + (y/256 * 40),220, 40, 0x808080);
 
        //Barra de progreso
       tutorial.progress = this.add.graphics(0,0);
@@ -80,7 +80,7 @@ export default class Boot extends Phaser.Scene{
       tutorial.c1.base.setMask(tutorial.c1.bMask);
       tutorial.c1.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
       tutorial.c1.base.setMask(tutorial.c1.bMask2);
-      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect(x/16, y/16, 375 * ratiox, 240 * ratioy);
+      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect((x/256 * 5), (y/256 * 0), 600 * ratiox, (300 * ratioy));
       tutorial.c1.button = new BlankButton(this, x/2 , (y/256 * 150), 'button1','button2', 'button3', 'Continuar', con).setScale(ratio);
       this.add.existing(tutorial.c1.button);
       tutorial.c1.tTxt = new Txt(this,x/2 + (x/256 * 5), (y/256 * 105) ,txt3,x,y, 'h2', 31);

@@ -28,11 +28,13 @@ var y =  window.innerHeight-20;
 var xr = 1905;
 var yr = 917;
 var ratio = ((x/xr)+(y/yr))/2
+var ratioy = (y/yr)/2
 
 
 export default class Preload extends Phaser.Scene{
     preload()
     {
+
         this.load.image('button1', button1);
         this.load.image('button2', button2);
         this.load.image('button3', button3);
@@ -52,8 +54,12 @@ export default class Preload extends Phaser.Scene{
 
     create()
     {
+        console.log(cond)
+        
       
-        tutorial.btn1 = this.add.existing(new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', 'Autoshaping').setScale(ratio));
-        tutorial.txt1 = new Txt(this, tutorial.btn1.x , tutorial.btn1.y - ((tutorial.btn1.height * ratio)*2.0) ,txt1,x,y, 'h2', 31, 'right')
+        tutorial.btn1 = this.add.existing(new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', 'Tutorial').setScale(ratio));
+
+       
+        tutorial.txt1 = new Txt(this, tutorial.btn1.x - ((x/256) * 8) , tutorial.btn1.y - ((tutorial.btn1.height * ratioy)*4) ,txt1,x,y, 'h2', 31, 'right')
     };
 }

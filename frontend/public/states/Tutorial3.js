@@ -49,12 +49,12 @@ export default class Tutorial extends Phaser.Scene
       tutorial.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: "#FF0000" }});
       tutorial.circle1 = new Phaser.Geom.Circle(x/2,y/2, 130 * ratio);
       tutorial.circle2 = new Phaser.Geom.Circle(x/2,y/2, 400 * ratio);
-      tutorial.teclaB = this.physics.add.sprite(x/16 + (x/256 * 45), y/16 + (y/256 * 25), 'barra').setScale(ratio)
+      tutorial.teclaB = this.physics.add.sprite((x/256 * 70), (y/256 * 10), 'barra').setScale(ratio)
       
       //Instrucciones
-      tutorial.tTxt1 = new Txt(this, tutorial.teclaD.x - (tutorial.teclaD.width/3) , tutorial.teclaD.y +(y/256 * 5)  ,txt5,x,y, 'h2', 31, 'center');
+      tutorial.tTxt1 = new Txt(this, tutorial.teclaB.x - ((tutorial.teclaB.width/3)+((x/256) * 2 )) , tutorial.teclaB.y +(y/256 * 2)  ,txt5,x,y, 'h2', 31, 'center');
       tutorial.tTxt2 = new Txt(this, tutorial.tTxt1.x - (x/256 * 5), tutorial.teclaI.y +(y/256 * 25)  ,txt4,x,y, 'h2', 31, 'center');
-      tutorial.rect = this.add.rectangle( x/16 + (x/256 * 25), y/16 + (y/256 * 60), 220, 40, 0x808080);
+      tutorial.rect = this.add.rectangle( (x/256 * 50), y/16 + (y/256 * 40), 220, 40, 0x808080);
 
       //Barra de progreso
       tutorial.progress = this.add.graphics(0,0);
@@ -82,7 +82,7 @@ export default class Tutorial extends Phaser.Scene
       tutorial.c1.base.setMask(tutorial.c1.bMask);
       tutorial.c1.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
       tutorial.c1.base.setMask(tutorial.c1.bMask2);
-      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect(x/16, y/16, 420 * ratiox, 240 * ratioy);
+      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect((x/256 * 5), (y/256 * 0), 600 * ratiox, (300 * ratioy));
       tutorial.c1.button = new BlankButton(this, x/2 , (y/256 * 150), 'button1','button2', 'button3', 'Continuar', con).setScale(ratio);
       this.add.existing(tutorial.c1.button);
       tutorial.c1.tTxt = new Txt(this,x/2 + (x/256 * 5), (y/256 * 105) ,txt3,x,y, 'h2', 31);
@@ -207,9 +207,17 @@ if(cont === 1)
       tutorial.cc.bMask2 = tutorial.cc.Mask.createGeometryMask().setInvertAlpha(true);
       tutorial.cc.base.setMask(tutorial.cc.bMask);
       tutorial.cc.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
+      var fase = "indefinido"
         
-      const button = new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', 'Tutorial4').setScale(ratio);
+      if(cond == "TRC"){
+        fase = "Tutorial4"
+      } else if(cond == "TSRC"){
+       fase = "TSRC"
+      };
+      console.log(fase)
+      const button = new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', fase ).setScale(ratio);
       this.add.existing(button)
+      
         
     
       tutorial.cc.txt = new Txt(this, button.x , button.y - ((button.height * ratio)*2.0) ,txt6,x,y, 'h2', 31, 'right')
