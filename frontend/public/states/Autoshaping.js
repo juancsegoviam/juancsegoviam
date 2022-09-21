@@ -57,8 +57,8 @@ var dataMatrix = {
   fase:[]
 };
 
-const listIti = [1000,1000,1000];
-const listP = [1000,1000,1000,100]
+const listIti = [369,7490,69,1148,213,4690,1691,3633,537, 721, 924,1402, 2947,2029,2436];
+const listP = [369,7490,69,1148,213,4690,1691,3633,537, 721, 924,1402, 2947,2029,2436];
 const stiDur = 3000; 
 const reiDur = 3000;
 //anterogrado = 1, retrogrado = 2
