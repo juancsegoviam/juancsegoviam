@@ -86,7 +86,7 @@ router.post("/consent", async(req,res) => {
     console.log(con)
 
     if(con === 'Accepto' ) {
-        
+        req.session.start = true
         await Subject.findOneAndUpdate({sujeto: user.sujeto},
             { consent: con})
     
@@ -103,7 +103,7 @@ router.post("/consent", async(req,res) => {
 
 router.get("/experiment", async(req,res) => {
     user = req.session.user
-
+    start = req.session.start;
     alert = true
     cond = user.cond;
   
