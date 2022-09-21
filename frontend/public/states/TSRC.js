@@ -54,7 +54,8 @@ var dataMatrix = {
   tiempoT:[],
   tiempoE:[],
   evento:[],
-  fase:[]
+  fase:[], 
+  iti:[]
 };
 
 const listIti = [1000,1000,1000];
@@ -94,7 +95,7 @@ export default class TSRC extends Phaser.Scene
         
         
         gameState.tTxt3 =  new Txt(this,x/2 + (x/256 * 22) ,y/2,txt9,x,y, 'h2', 31, 'center');
-        gameState.point2 = new Phaser.Geom.Rectangle(x/2, y/2, 16, 16);
+      
         
         gameState.sti.anims.create(
             {
@@ -309,13 +310,15 @@ export default class TSRC extends Phaser.Scene
 
       this.tweens.add({
         targets: gameState.tTxt4.txt,
-        y: gameState.tTxt4.txt.y - 100,
+        y: gameState.tTxt4.txt.y - 1000,
         ease: 'Power1',
         duration: 2000,
         delay: 500,
         yoyo: false,
         repeat: 0
     });
+
+    setTimeout(function(){ gameState.tTxt4.txt.destroy()}, 100);
     
       
     }
@@ -347,20 +350,20 @@ export default class TSRC extends Phaser.Scene
       console.log(expTime)
       
       var that = this
+     
         
 
         intervol = setInterval(function () {
           for (var i = 0; i < 10000; i++) 
           {
-            // YOUR CODE
-            elapsedTime = new Date().getTime() -initTime;
-            if(fase == "Adq")
-            {
-              if(par == 0)
-            {
-              
+            if(fase == "Adq" && par == 0) {
               index = Math.floor(Math.random() * listIti.length);
               iti = listIti[index];
+              console.log(iti)
+              listIti.splice(index,1)
+        
+              
+              //asignación del arreglo temporal
               if(arreglo == 1) 
               {
                 startS = iti ;
@@ -378,61 +381,63 @@ export default class TSRC extends Phaser.Scene
                 endR = startR + reiDur;
                 end = endS
               }
-              par = 1;
+              par = 1
+            } 
+            else if(fase == "Adq" && par == 1){
               
-            }
-            if(elapsedTime < iti)
-            {
-              gameState.sti.play('hit', true);
-              gameState.cent.play('hit', true);
-            }
-            if(elapsedTime > startS-1 && limit1 == 0)
-            {
-              that.ecStart(fase)
-              limit1 = 1;
-            }
-            else if(elapsedTime > endS-1 && limit1 == 1)
-            {
-              that.ecEnd(fase)
-             
-              limit1 = 2;
-              
-            }
-            else if(elapsedTime > startR-1 && limit2 == 0)
-            {
-              that.reinStart(fase)
-              limit2 = 1;
-
-            }
-            else if(elapsedTime > endR-1 && limit2 == 1)
-            {
-              that.reinEnd(fase);
-              limit2 = 2;
-            }
-            else if(elapsedTime >= end)
-            {
-              limit1 = 0;
-              limit2 = 0;
-              initTime = new Date().getTime();
-              pass++;
-              par = 0
+              elapsedTime = new Date().getTime() -initTime;
+              if(elapsedTime < iti)
+              {
+                gameState.sti.play('hit', true);
+                gameState.cent.play('hit', true);
+              }
+              else if(elapsedTime > startS-1 && limit1 == 0)
+              {
+                that.ecStart(fase,iti)
+                limit1 = 1;
+              }
+              else if(elapsedTime > endS-1 && limit1 == 1)
+              {
+                that.ecEnd(fase,iti)
+                limit1 = 2;
+              }
+              else if(elapsedTime > startR-1 && limit2 == 0)
+              {
+                that.reinStart(fase,iti)
+                limit2 = 1;
+              }
+              else if(elapsedTime > endR-1 && limit2 == 1)
+              {
+                that.reinEnd(fase,iti);
+                limit2 = 2;
+              }
+              else if(elapsedTime >= end)
+              {
+                limit1 = 0;
+                limit2 = 0;
+                initTime = new Date().getTime();
+                par = 0
+                pass++;
+   
               if(pass == ensayos)
               {
-               
-                fase = "Test";
-               
+        
+                fase = "Test" 
+              
               }
             }
+            
+            
 
-            } else if(fase == "Test"){
-          
+            }
+             if(fase == "Test" && par == 0) {
               index = Math.floor(Math.random() * listP.length);
-              iti = listIti[index];
-              if(par2 == 0)
-            {
+              iti = listP[index];
+              listP.splice(index,1)
+              console.log(iti)
+        
               
-              index = Math.floor(Math.random() * listIti.length);
-              iti = listIti[index];
+              //asignación del arreglo temporal
               if(arreglo == 1) 
               {
                 startS = iti ;
@@ -450,56 +455,61 @@ export default class TSRC extends Phaser.Scene
                 endR = startR + reiDur;
                 end = endS
               }
-              par2 = 1;
+              par = 1
+            } 
+            else if(fase == "Test" && par == 1){
               
-            }
-            if(elapsedTime < iti)
-            {
-              gameState.sti.play('hit', true);
-              gameState.cent.play('hit', true);
-            }
-            if(elapsedTime > startS-1 && limit1 == 0)
-            {
-              that.ecStart(fase)
-              limit1 = 1;
-            }
-            else if(elapsedTime > endS-1 && limit1 == 1)
-            {
-              that.ecEnd(fase)
-             
-              limit1 = 2;
-              
-            }
-            else if(elapsedTime > startR-1 && limit2 == 0)
-            {
-             
-              limit2 = 1;
-
-            }
-            else if(elapsedTime > endR-1 && limit2 == 1)
-            {
-             
-              limit2 = 2;
-            }
-            else if(elapsedTime >= end)
-            {
-              limit1 = 0;
-              limit2 = 0;
-              initTime = new Date().getTime();
-              test++;
-              par = 0
-              if(test == pruebas)
+              elapsedTime = new Date().getTime() -initTime;
+              if(elapsedTime < iti)
               {
-                
-                
+                gameState.sti.play('hit', true);
+                gameState.cent.play('hit', true);
+              }
+              else if(elapsedTime > startS-1 && limit1 == 0)
+              {
+                that.ecStart(fase, iti)
+                limit1 = 1;
+              }
+              else if(elapsedTime > endS-1 && limit1 == 1)
+              {
+                that.ecEnd(fase, iti)
+                limit1 = 2;
+              }
+              else if(elapsedTime > startR-1 && limit2 == 0)
+              {
+               
+                limit2 = 1;
+              }
+              else if(elapsedTime > endR-1 && limit2 == 1)
+              {
+              
+                limit2 = 2;
+              }
+              else if(elapsedTime >= end)
+              {
+                limit1 = 0;
+                limit2 = 0;
+                initTime = new Date().getTime();
+                par = 0
+                pass2++;
+   
+              if(pass2 == pruebas)
+              {
                 toString(dataMatrix.puntos)
-    
+
+            
                 const options = {
                   method: "POST",
                   header: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({"start_experiment":expTime.toString(), "end_experiment": new Date().toString(),"puntos": dataMatrix.puntos,"evento": dataMatrix.evento, "tiempo": dataMatrix.tiempoE, "fase": dataMatrix.fase}),
+                  body: JSON.stringify({"start_experiment":expTime.toString(), 
+                  "end_experiment": new Date().toString(),
+                  "puntos": dataMatrix.puntos,
+                  "evento": dataMatrix.evento, 
+                  "tiempo": dataMatrix.tiempoE, 
+                  "fase": dataMatrix.fase, 
+                  "iti": dataMatrix.iti}),
                 };
             
                 fetch('/experiment', options);
@@ -513,16 +523,16 @@ export default class TSRC extends Phaser.Scene
                 
                 console.log(dataMatrix)
                 console.log('ya estuvo');
+               
+                
+        
               }
             }
             
-              
+            
 
             }
-            
-  
-          
-            
+        
 
             
     

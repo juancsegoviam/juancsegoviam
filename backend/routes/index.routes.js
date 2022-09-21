@@ -121,13 +121,14 @@ router.get("/experiment", async(req,res) => {
 
 router.post("/experiment", async(req,res) => {
     user = req.session.user
-    const {puntos, evento, tiempo, fase, start_experiment, end_experiment} = req.body
+    const {puntos, evento, tiempo, fase, start_experiment, end_experiment, iti} = req.body
     await Subject.findOneAndUpdate({sujeto: user.sujeto},
         {
             puntos: puntos,
             tiempo: tiempo,
             evento: evento,
             fase: fase,
+            iti: iti,
             start_experiment: start_experiment,
             end_experiment: end_experiment }),
             console.log(puntos,evento, tiempo + " posting");

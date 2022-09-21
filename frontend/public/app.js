@@ -10,7 +10,7 @@ import TSRC from './states/TSRC.js';
 
 
 
-
+var puntos;
 var x  = window.innerWidth -15;
 var y =  window.innerHeight- 25;
 console.log(cond)

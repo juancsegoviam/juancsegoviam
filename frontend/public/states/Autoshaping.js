@@ -44,21 +44,25 @@ var limit1 = 0;
 var limit2 = 0;
 var end = 0;
 
+
 let pass = 0;
+let pass2 = 0;
 let test = 0;
 let fase;
-let hola = '123456'
+let aTrial = undefined;
+let timerOk = 0;
 
 var dataMatrix = {
   puntos: "no puntos",
   tiempoT:[],
   tiempoE:[],
   evento:[],
-  fase:[]
+  fase:[],
+  iti:[]
 };
 
-const listIti = [369,7490,69,1148,213,4690,1691,3633,537, 721, 924,1402, 2947,2029,2436];
-const listP = [369,7490,69,1148,213,4690,1691,3633,537, 721, 924,1402, 2947,2029,2436];
+var listIti = [69,213,369];
+var listP = [69,213,369]
 const stiDur = 3000; 
 const reiDur = 3000;
 //anterogrado = 1, retrogrado = 2
@@ -147,6 +151,7 @@ export default class Autoshaping extends Phaser.Scene
          console.log('respo Co')
          console.log(dataMatrix);
          dataMatrix.fase.push(fase)
+         dataMatrix.iti.push(iti)
            
          
         });
@@ -163,6 +168,7 @@ export default class Autoshaping extends Phaser.Scene
             console.log('respo Or')
             console.log(dataMatrix)   
             dataMatrix.fase.push(fase)
+            dataMatrix.iti.push(iti)
          });
 
          gameState.centAct = this.physics.add.collider(gameState.cent, bullets, (reinforcer,bullet) => 
@@ -185,13 +191,16 @@ export default class Autoshaping extends Phaser.Scene
      
            this.tweens.add({
              targets: gameState.tTxt4.txt,
-             y: gameState.tTxt4.txt.y - 100,
+             y: gameState.tTxt4.txt.y - 1000,
              ease: 'Power1',
              duration: 2000,
              delay: 500,
              yoyo: false,
-             repeat: 0
+             repeat: 0,
+    
          });
+         setTimeout(function(){ gameState.tTxt4.txt.destroy()}, 100);
+         dataMatrix.iti.push(iti)
            
            
           });
@@ -206,6 +215,7 @@ export default class Autoshaping extends Phaser.Scene
             dataMatrix.tiempoE.push(elapsedTime);
             dataMatrix.evento.push('rSM');
             dataMatrix.fase.push(fase)
+            dataMatrix.iti.push(iti)
            });
 
          fase = "Adq"
@@ -221,7 +231,6 @@ export default class Autoshaping extends Phaser.Scene
         gameState.graphics.strokeCircleShape(gameState.circle2);
         gameState.graphics.fillStyle(0xff00ff);
         gameState.graphics.fillRect(gameState.point.x - 8, gameState.point.y - 8, gameState.point.width, gameState.point.height);
-        gameState.graphics.fillRect(gameState.point2.x - 8, gameState.point2.y - 8, gameState.point2.width, gameState.point2.height);
         Phaser.Geom.Circle.CircumferencePoint(gameState.circle1, a, gameState.player);
         Phaser.Geom.Circle.CircumferencePoint(gameState.circle2, a, gameState.point);
 
@@ -229,7 +238,7 @@ export default class Autoshaping extends Phaser.Scene
         gameState.player.setRotation(Phaser.Math.Angle.Between(gameState.point.x, gameState.point.y, gameState.player.x, gameState.player.y) - Math.PI / 2);
       if(gameState.cursors.right.isDown)
       {
-        a += 0.03;
+        a += 0.05;
         gameState.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -239,7 +248,7 @@ export default class Autoshaping extends Phaser.Scene
       
       if(gameState.cursors.left.isDown)
       {
-        a -= 0.03;
+        a -= 0.05;
         gameState.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -258,13 +267,14 @@ export default class Autoshaping extends Phaser.Scene
       };
     }
 
-    ecStart(fase)
+    ecStart(fase,iti)
     {
       console.log(fase);
       dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('ECstart');
       dataMatrix.fase.push(fase)
       console.log(dataMatrix)
+      dataMatrix.iti.push(iti)
          
       gameState.ecDeact.active = false;
       gameState.sti.play('normal', true);
@@ -272,13 +282,14 @@ export default class Autoshaping extends Phaser.Scene
   
     }
 
-    ecEnd(fase)
+    ecEnd(fase,iti)
     {
       gameState.ecAct.active = false;
       gameState.ecDeact.active = true;
       dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('ECend');
-      dataMatrix.fase.push(fase)
+      dataMatrix.fase.push(fase);
+      dataMatrix.iti.push(iti)
        
       console.log(Date.now() -initTime);
       gameState.sti.play('hit', true);
@@ -286,11 +297,12 @@ export default class Autoshaping extends Phaser.Scene
 
     }
 
-    reinStart(fase)
+    reinStart(fase,iti)
     {
       dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('RStart');
       dataMatrix.fase.push(fase)
+      dataMatrix.iti.push(iti)
         
       console.log(Date.now() - initTime)
       gameState.centDeact.active = false;
@@ -298,11 +310,12 @@ export default class Autoshaping extends Phaser.Scene
       gameState.centAct.active = true;
     }
 
-    reinEnd(fase)
+    reinEnd(fase,iti)
     {
       dataMatrix.tiempoE.push(elapsedTime);
       dataMatrix.evento.push('rEnd');
       dataMatrix.fase.push(fase)
+      dataMatrix.iti.push(iti)
       
 
       console.log(Date.now() -initTime);
@@ -323,20 +336,20 @@ export default class Autoshaping extends Phaser.Scene
       console.log(expTime)
       
       var that = this
+      console.log(fase,par,aTrial)
         
 
         intervol = setInterval(function () {
           for (var i = 0; i < 10000; i++) 
           {
-            // YOUR CODE
-            elapsedTime = new Date().getTime() -initTime;
-            if(fase == "Adq")
-            {
-              if(par == 0)
-            {
-              
+            if(fase == "Adq" && par == 0) {
               index = Math.floor(Math.random() * listIti.length);
               iti = listIti[index];
+              console.log(iti)
+              listIti.splice(index,1)
+        
+              
+              //asignación del arreglo temporal
               if(arreglo == 1) 
               {
                 startS = iti ;
@@ -354,61 +367,63 @@ export default class Autoshaping extends Phaser.Scene
                 endR = startR + reiDur;
                 end = endS
               }
-              par = 1;
+              par = 1
+            } 
+            else if(fase == "Adq" && par == 1){
               
-            }
-            if(elapsedTime < iti)
-            {
-              gameState.sti.play('hit', true);
-              gameState.cent.play('hit', true);
-            }
-            if(elapsedTime > startS-1 && limit1 == 0)
-            {
-              that.ecStart(fase)
-              limit1 = 1;
-            }
-            else if(elapsedTime > endS-1 && limit1 == 1)
-            {
-              that.ecEnd(fase)
-             
-              limit1 = 2;
-              
-            }
-            else if(elapsedTime > startR-1 && limit2 == 0)
-            {
-              that.reinStart(fase)
-              limit2 = 1;
-
-            }
-            else if(elapsedTime > endR-1 && limit2 == 1)
-            {
-              that.reinEnd(fase);
-              limit2 = 2;
-            }
-            else if(elapsedTime >= end)
-            {
-              limit1 = 0;
-              limit2 = 0;
-              initTime = new Date().getTime();
-              pass++;
-              par = 0
+              elapsedTime = new Date().getTime() -initTime;
+              if(elapsedTime < iti)
+              {
+                gameState.sti.play('hit', true);
+                gameState.cent.play('hit', true);
+              }
+              else if(elapsedTime > startS-1 && limit1 == 0)
+              {
+                that.ecStart(fase,iti)
+                limit1 = 1;
+              }
+              else if(elapsedTime > endS-1 && limit1 == 1)
+              {
+                that.ecEnd(fase,iti)
+                limit1 = 2;
+              }
+              else if(elapsedTime > startR-1 && limit2 == 0)
+              {
+                that.reinStart(fase,iti)
+                limit2 = 1;
+              }
+              else if(elapsedTime > endR-1 && limit2 == 1)
+              {
+                that.reinEnd(fase,iti);
+                limit2 = 2;
+              }
+              else if(elapsedTime >= end)
+              {
+                limit1 = 0;
+                limit2 = 0;
+                initTime = new Date().getTime();
+                par = 0
+                pass++;
+   
               if(pass == ensayos)
               {
-               
-                fase = "Test";
-               
+        
+                fase = "Test" 
+              
               }
             }
+            
+            
 
-            } else if(fase == "Test"){
-          
+            }
+             if(fase == "Test" && par == 0) {
               index = Math.floor(Math.random() * listP.length);
-              iti = listIti[index];
-              if(par2 == 0)
-            {
+              iti = listP[index];
+              listP.splice(index,1)
+              console.log(iti)
+        
               
-              index = Math.floor(Math.random() * listIti.length);
-              iti = listIti[index];
+              //asignación del arreglo temporal
               if(arreglo == 1) 
               {
                 startS = iti ;
@@ -426,56 +441,61 @@ export default class Autoshaping extends Phaser.Scene
                 endR = startR + reiDur;
                 end = endS
               }
-              par2 = 1;
+              par = 1
+            } 
+            else if(fase == "Test" && par == 1){
               
-            }
-            if(elapsedTime < iti)
-            {
-              gameState.sti.play('hit', true);
-              gameState.cent.play('hit', true);
-            }
-            if(elapsedTime > startS-1 && limit1 == 0)
-            {
-              that.ecStart(fase)
-              limit1 = 1;
-            }
-            else if(elapsedTime > endS-1 && limit1 == 1)
-            {
-              that.ecEnd(fase)
-             
-              limit1 = 2;
-              
-            }
-            else if(elapsedTime > startR-1 && limit2 == 0)
-            {
-             
-              limit2 = 1;
-
-            }
-            else if(elapsedTime > endR-1 && limit2 == 1)
-            {
-             
-              limit2 = 2;
-            }
-            else if(elapsedTime >= end)
-            {
-              limit1 = 0;
-              limit2 = 0;
-              initTime = new Date().getTime();
-              test++;
-              par = 0
-              if(test == pruebas)
+              elapsedTime = new Date().getTime() -initTime;
+              if(elapsedTime < iti)
               {
-                
-                
+                gameState.sti.play('hit', true);
+                gameState.cent.play('hit', true);
+              }
+              else if(elapsedTime > startS-1 && limit1 == 0)
+              {
+                that.ecStart(fase, iti)
+                limit1 = 1;
+              }
+              else if(elapsedTime > endS-1 && limit1 == 1)
+              {
+                that.ecEnd(fase, iti)
+                limit1 = 2;
+              }
+              else if(elapsedTime > startR-1 && limit2 == 0)
+              {
+               
+                limit2 = 1;
+              }
+              else if(elapsedTime > endR-1 && limit2 == 1)
+              {
+              
+                limit2 = 2;
+              }
+              else if(elapsedTime >= end)
+              {
+                limit1 = 0;
+                limit2 = 0;
+                initTime = new Date().getTime();
+                par = 0
+                pass2++;
+   
+              if(pass2 == pruebas)
+              {
                 toString(dataMatrix.puntos)
-    
+
+            
                 const options = {
                   method: "POST",
                   header: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({"start_experiment":expTime.toString(), "end_experiment": new Date().toString(),"puntos": dataMatrix.puntos,"evento": dataMatrix.evento, "tiempo": dataMatrix.tiempoE, "fase": dataMatrix.fase}),
+                  body: JSON.stringify({"start_experiment":expTime.toString(), 
+                  "end_experiment": new Date().toString(),
+                  "puntos": dataMatrix.puntos,
+                  "evento": dataMatrix.evento, 
+                  "tiempo": dataMatrix.tiempoE, 
+                  "fase": dataMatrix.fase, 
+                  "iti": dataMatrix.iti}),
                 };
             
                 fetch('/experiment', options);
@@ -489,16 +509,16 @@ export default class Autoshaping extends Phaser.Scene
                 
                 console.log(dataMatrix)
                 console.log('ya estuvo');
+               
+                
+        
               }
             }
             
-              
+            
 
             }
-            
-  
-          
-            
+        
 
             
     

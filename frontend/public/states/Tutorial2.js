@@ -135,7 +135,7 @@ export default class Boot extends Phaser.Scene{
         if(tutorial.cursors.right.isDown)
         {
           console.log(a)
-          a += 0.06;
+          a += 0.05;
           tutorial.player.angle += 0.01;
           if(a >= Phaser.Math.PI2)
           {

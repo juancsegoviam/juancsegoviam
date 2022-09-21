@@ -2,7 +2,7 @@ import Phaser from "phaser";
 
 //Constantes
 import {tutorial} from "../consts/Const"
-import {txt3,txt6,txt7,txt8,txt9,txt10 } from "../consts/txt";
+import {txt3,txt6,txt7,txt8,txt9,txt10,txt13 } from "../consts/txt";
 
 //Objetos
 import Txt from "../object/Txt";
@@ -55,7 +55,7 @@ export default class Tutorial extends Phaser.Scene
       tutorial.tTxt1 = new Txt(this, tutorial.cent2.x - (x/256 * 5) , tutorial.cent2.y +(y/256 * 2)  ,txt7,x,y, 'h2', 31, 'center');
       tutorial.tTxt2 = new Txt(this, tutorial.cent2.x - (x/256 * 6) , tutorial.cent2.y +(y/256 * 20)  ,txt8,x,y, 'h2', 31, 'center');
       tutorial.tTxt3 =  new Txt(this, tutorial.cent2.x - (x/256 * 5) , tutorial.cent2.y +(y/256 * 40)  ,txt9,x,y, 'h2', 31, 'center');
-      tutorial.tTxt4 =  new Txt(this, x/2 ,y/2 ,txt9,x,y, 'h2', 31, 'center');
+      tutorial.tTxt4 =  new Txt(this, x/2 + (x/256 * 22) ,y/2,txt9,x,y, 'h2', 31, 'center');
       
 
 
@@ -180,6 +180,23 @@ export default class Tutorial extends Phaser.Scene
           tutorial.tTxt4.txt.setText(`Puntos: ${tutorial.score}`); 
           tutorial.cent1.play('normal', true);
           setTimeout(function(){ tutorial.cent1.play('hit', true); }, 100); 
+
+          tutorial.tTxt5 =  new Txt(this, tutorial.cent1.x  , tutorial.cent1.y ,txt13,x,y, 'h2', 31, 'center');
+
+          Phaser.Geom.Circle.CircumferencePoint(tutorial.circle2, 4.7,  tutorial.tTxt5.txt);
+    
+          this.tweens.add({
+            targets: tutorial.tTxt5.txt,
+            y: tutorial.tTxt5.txt.y - 1000,
+            ease: 'Power1',
+            duration: 2000,
+            delay: 500,
+            yoyo: false,
+            repeat: 0
+        });
+
+        setTimeout(function(){ gameState.tTxt4.txt.destroy()}, 100);
+
           
         
         });
@@ -226,7 +243,7 @@ export default class Tutorial extends Phaser.Scene
 
       if(tutorial.cursors.right.isDown)
       {
-        a += 0.06;
+        a += 0.05;
         tutorial.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -236,7 +253,7 @@ export default class Tutorial extends Phaser.Scene
       
       if(tutorial.cursors.left.isDown)
       {
-        a -= 0.06;
+        a -= 0.05;
         tutorial.player.angle += 0.01;
         if(a >= Phaser.Math.PI2)
         {
@@ -275,7 +292,7 @@ if(cont === 1)
       this.add.existing(button)
         
     
-      tutorial.cc.txt = new Txt(this, button.x - (x/256 * 3) , button.y - ((button.height * ratioy)*3.0) ,txt10,x,y, 'h2', 31, 'right')
+      tutorial.cc.txt = new Txt(this, button.x - (x/256 * 6) , button.y - ((button.height * ratioy)*3.0) ,txt10,x,y, 'h2', 31, 'right')
     }
 
     

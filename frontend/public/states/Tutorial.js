@@ -155,7 +155,7 @@ export default class Tutorial extends Phaser.Scene{
         if(tutorial.cursors.left.isDown)
         {
           console.log(a)
-          a -= 0.06;
+          a -= 0.05;
           tutorial.player.angle += 0.01;
           if(a >= Phaser.Math.PI2)
           {
