@@ -132,8 +132,17 @@ router.post("/experiment", async(req,res) => {
             start_experiment: start_experiment,
             end_experiment: end_experiment }),
             console.log(puntos,evento, tiempo + " posting");
+            form = false;
+exp = false;
+consent = false;
+warning = false;
+user = {};
+        res.redirect("/")
             
         });
+
+        
+
 
     
 
