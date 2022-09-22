@@ -32,11 +32,12 @@ if(process.env.NODE_ENV != 'production'){
         session({
           secret: "secret",
           resave: false,
-          saveUninitialized: false,
+          saveUninitialized: true,
           cookie: {
-            sameSite:"none",
+            path: "/",
+            sameSite:  true,
             httpOnly: true,
-            secure: false,
+            secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 30
         },
           store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI}),
