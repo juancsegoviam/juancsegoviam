@@ -19,6 +19,7 @@ let id ;
 
 
 router.get("/", async (req,res) => {
+    console.log(req.session.cookie)
     consent = false
     if(form == true) {
         warning  = true;
