@@ -17,7 +17,8 @@ if(process.env.NODE_ENV != 'production'){
     app.set('port', process.env.PORT || 1234);
     app.set("views", path.join(__dirname, '../frontend/views'));
     app.set("view engine", ".ejs");
-    app.set('trust proxy', 1) 
+    //app.set('trust proxy', 1)
+    
     
 
     
@@ -29,12 +30,15 @@ if(process.env.NODE_ENV != 'production'){
     const MongoStore = require('connect-mongo');
     app.use(
         session({
-          sameSite: 'none',
-          name: "app",
           secret: "secret",
           resave: false,
           saveUninitialized: false,
-          cookie: { },
+          cookie: {
+            sameSite:"none",
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60 * 24 * 30
+        },
           store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI}),
         })
       );
