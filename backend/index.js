@@ -36,7 +36,7 @@ if(process.env.NODE_ENV != 'production'){
           cookie: {
             path: "/",
             sameSite:  true,
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 30
         },
