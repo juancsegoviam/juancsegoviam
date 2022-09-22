@@ -19,11 +19,13 @@ let id ;
 
 
 router.get("/", async (req,res) => {
+    consent = false
     if(form == true) {
         warning  = true;
         res.redirect("/consent")
     } else {
         res.render("index", {form, exp, consent});
+        delete req.session
 
     }
     
@@ -44,6 +46,7 @@ router.post("/", async (req,res) => {
     }
     else if(!user.sujeto || !user.name || !user.age){
         form = "incompleto";
+        delete req.session
         res.render("index", {
             form, exp, user, consent
         })
@@ -70,6 +73,7 @@ router.get("/consent", async(req,res) => {
     
 
     } else {
+        delete req.session
         consent = true
         res.redirect("/")
     }
@@ -93,6 +97,7 @@ router.post("/consent", async(req,res) => {
         
         res.redirect("/experiment");
     } else{
+        delete req.session
         res.render("cancelo")
     }
 
@@ -109,6 +114,7 @@ router.get("/experiment", async(req,res) => {
   
     if(start === undefined){
         start = false;
+        delete req.session
 
         res.redirect("/")
     }
@@ -133,6 +139,7 @@ router.post("/experiment", async(req,res) => {
             end_experiment: end_experiment }),
             console.log(puntos,evento, tiempo + " posting");
             form = false;
+delete req.session
 exp = false;
 consent = false;
 warning = false;

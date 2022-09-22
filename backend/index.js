@@ -17,18 +17,25 @@ if(process.env.NODE_ENV != 'production'){
     app.set('port', process.env.PORT || 1234);
     app.set("views", path.join(__dirname, '../frontend/views'));
     app.set("view engine", ".ejs");
+    app.set('trust proxy', 1) 
+    
+
     
     
     //middlewares
     const morgan = require('morgan');
     const flash = require('connect-flash');
     const session = require('express-session');
+    const MongoStore = require('connect-mongo');
     app.use(
         session({
+          sameSite: 'none',
+          name: "app",
           secret: "secret",
           resave: false,
           saveUninitialized: false,
-          //store: MongoStore.create({ mongoUrl: config.MONGODB_URI }),
+          cookie: { },
+          store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI}),
         })
       );
     
@@ -44,7 +51,9 @@ if(process.env.NODE_ENV != 'production'){
     
     //routes
     
-    const router = require("./routes/index.routes")
+    const router = require("./routes/index.routes");
+    const sujetos = require('./models/sujetos');
+const { default: mongoose } = require('mongoose');
     
     app.use(router)
     
