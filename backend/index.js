@@ -35,7 +35,7 @@ if(process.env.NODE_ENV != 'production'){
           saveUninitialized: true,
           cookie: {
             path: "/",
-            sameSite:  true,
+            sameSite: "none",
             httpOnly: false,
             secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 30
