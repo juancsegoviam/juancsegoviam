@@ -3,15 +3,7 @@ let ejs = require('ejs');
 const router = Router();
 const Subject = require('../models/sujetos');
 
-let ids = {};
 
-let form = false;
-let exp = false;
-let consent = false;
-let warning = false;
-let user = {};
-let prueba;
-let id ;
 
 
 
@@ -19,23 +11,36 @@ let id ;
 
 
 router.get("/", async (req,res) => {
-    console.log(req.session.cookie)
-    consent = false
-    if(form == true) {
-        warning  = true;
-        res.redirect("/consent")
-    } else {
-        res.render("index", {form, exp, consent});
-        delete req.session
 
+    var consent = req.session.consent;
+    var exp = req.session.exp;
+    var form = req.session.form;
+    var warning = req.session.warning;
+
+    if( (form == undefined && warning == undefined && consent == undefined && exp == undefined)){
+        form = false;
+        exp = false;
+        consent = false;
+        warning = false;
+        res.render("index", {form, exp, consent});
+    } else {
+        warning = true;
+        res.redirect("/consent")
     }
+  
     
    
 })
 
 router.post("/", async (req,res) => {
-    req.session.user = req.body
-    user = req.session.user;
+    req.session.user = req.body;
+
+    var consent = req.session.consent;
+    var exp = req.session.exp;
+    var form = req.session.form;
+    var user = req.session.user;
+   
+
     
     let {cond, sujeto, name, age} = req.body;
     if(!(user.cond == "TRC" || user.cond == "TSRC"  )) {
@@ -46,27 +51,28 @@ router.post("/", async (req,res) => {
         })
     }
     else if(!user.sujeto || !user.name || !user.age){
+        
         form = "incompleto";
-        delete req.session
         res.render("index", {
             form, exp, user, consent
         })
     }else {
-        form = true;
+        req.session.form = true;
         const newSubject = await new Subject({cond,sujeto,name, age});
         newSubject.save();
-        // res.redirect("/experiment");.
+      
         user = {}
         [cond,sujeto, name, age] = ["","","",];
-        console.log(sujeto)
+     
         res.redirect("/consent")
     }
     
 });
 
 router.get("/consent", async(req,res) => {
-
-    user = req.session.user
+    var form = req.session.form;
+    var user = req.session.user
+    var warning = req.session.warning
     if (form === true){
         var date = new Date
         const [month,day,year] = [date.getMonth() + 1, date.getDate(), date.getFullYear()]
@@ -74,8 +80,7 @@ router.get("/consent", async(req,res) => {
     
 
     } else {
-        delete req.session
-        consent = true
+        req.session.consent = true
         res.redirect("/")
     }
 
@@ -85,10 +90,9 @@ router.get("/consent", async(req,res) => {
 });
 
 router.post("/consent", async(req,res) => {
-    user = req.session.user
-    console.log(user)
-    const con = req.body.consent
-    console.log(con)
+    var user = req.session.user
+    var con = req.body.consent
+ 
 
     if(con === 'Accepto' ) {
         req.session.start = true
@@ -98,7 +102,9 @@ router.post("/consent", async(req,res) => {
         
         res.redirect("/experiment");
     } else{
-        delete req.session
+        await Subject.findOneAndUpdate({sujeto: user.sujeto},
+            { consent: con})
+
         res.render("cancelo")
     }
 
@@ -115,7 +121,6 @@ router.get("/experiment", async(req,res) => {
   
     if(start === undefined){
         start = false;
-        delete req.session
 
         res.redirect("/")
     }
@@ -139,13 +144,7 @@ router.post("/experiment", async(req,res) => {
             start_experiment: start_experiment,
             end_experiment: end_experiment }),
             console.log(puntos,evento, tiempo + " posting");
-            form = false;
-delete req.session
-exp = false;
-consent = false;
-warning = false;
-user = {};
-        res.redirect("/")
+        res.end()
             
         });
 

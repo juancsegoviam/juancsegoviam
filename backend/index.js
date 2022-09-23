@@ -30,19 +30,11 @@ if(process.env.NODE_ENV != 'production'){
     const MongoStore = require('connect-mongo');
     app.use(
         session({
-     
-          secret: "secret",
-          resave: false,
-          saveUninitialized: false,
-          proxy: true,
-          cookie: {
-            sameSite: "none",
-            httpOnly: false,
-          
-            maxAge: 1000 * 60 * 60 * 24,
-            secure: false,
-        },
-          store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI}),
+        secret: 'mySecret',
+        resave: false,
+        name: "ucompany",
+        saveUninitialized: false,
+          // store: new MongoStore({ mongoUrl: process.env.MONGODB_URI}),
         })
       );
 

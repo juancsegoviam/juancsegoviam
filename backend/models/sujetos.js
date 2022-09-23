@@ -7,7 +7,7 @@ const SubjectSchema= new Schema({
     age: {type: String},
     fase: {type: Array, default: ['without data']},
     iti:{type: Array, default: ['without data']},
-    concent: {type: String},
+    consent: {type: String},
     created_at: {type: String, default: Date.now},
     start_experiment: {type: String, default: "No data"},
     end_experiment:{type:String, default: "No data"},

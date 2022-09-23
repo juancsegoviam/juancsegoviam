@@ -61,8 +61,8 @@ var dataMatrix = {
   iti:[]
 };
 
-var listIti = [10];
-var listP = [10]
+var listIti = [69,213,369,537,721,924,1148,1402,1691,2029,2436,2947,3633,4690,7490];
+var listP = [69,213,369,537,721,924,1148,1402,1691,2029,2436,2947,3633,4690,7490]
 const stiDur = 3000; 
 const reiDur = 3000;
 //anterogrado = 1, retrogrado = 2
