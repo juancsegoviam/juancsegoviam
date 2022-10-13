@@ -47,8 +47,8 @@ export default class Tutorial extends Phaser.Scene
       tutorial.player = this.physics.add.image(x/2,y/2, 'player').setDisplaySize(104 * ratio,104 * ratio);
       tutorial.point = new Phaser.Geom.Rectangle(0, 0, 16, 16);
       tutorial.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: "#FF0000" }});
-      tutorial.circle1 = new Phaser.Geom.Circle(x/2,y/2, 130 * ratio);
-      tutorial.circle2 = new Phaser.Geom.Circle(x/2,y/2, 400 * ratio);
+      tutorial.circle1 = new Phaser.Geom.Circle(x/2,y/2, 110 * ratio);
+      tutorial.circle2 = new Phaser.Geom.Circle(x/2,y/2, 380 * ratio);
       tutorial.teclaB = this.physics.add.sprite((x/256 * 70), (y/256 * 10), 'barra').setScale(ratio)
       
       //Instrucciones
@@ -74,25 +74,27 @@ export default class Tutorial extends Phaser.Scene
       tutorial.teclaB.play('hit',true);
 
       //Capa 1
-      tutorial.c1
-      tutorial.c1.base = this.add.graphics();
-      tutorial.c1.Mask =  this.add.graphics().setVisible(false);
-      tutorial.c1.bMask = tutorial.c1.Mask.createGeometryMask().setInvertAlpha(true);
-      tutorial.c1.bMask2 = tutorial.c1.Mask.createGeometryMask().setInvertAlpha(true);
-      tutorial.c1.base.setMask(tutorial.c1.bMask);
-      tutorial.c1.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
-      tutorial.c1.base.setMask(tutorial.c1.bMask2);
-      tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect((x/256 * 5), (y/256 * 0), 600 * ratiox, (300 * ratioy));
-      tutorial.c1.button = new BlankButton(this, x/2 , (y/256 * 150), 'button1','button2', 'button3', 'Continuar', con).setScale(ratio);
-      this.add.existing(tutorial.c1.button);
-      tutorial.c1.tTxt = new Txt(this,x/2 + (x/256 * 5), (y/256 * 105) ,txt3,x,y, 'h2', 31);
+      // tutorial.c1
+      // tutorial.c1.base = this.add.graphics();
+      // tutorial.c1.Mask =  this.add.graphics().setVisible(false);
+      // tutorial.c1.bMask = tutorial.c1.Mask.createGeometryMask().setInvertAlpha(true);
+      // tutorial.c1.bMask2 = tutorial.c1.Mask.createGeometryMask().setInvertAlpha(true);
+      // tutorial.c1.base.setMask(tutorial.c1.bMask);
+      // tutorial.c1.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
+      // tutorial.c1.base.setMask(tutorial.c1.bMask2);
+      // tutorial.c1.Mask .fillStyle(0xC47AC0).fillRect((x/256 * 5), (y/256 * 0), 600 * ratiox, (300 * ratioy));
+      // tutorial.c1.button = new BlankButton(this, x/2 , (y/256 * 150), 'button1','button2', 'button3', 'Continuar', con).setScale(ratio);
+      // this.add.existing(tutorial.c1.button);
+      // tutorial.c1.tTxt = new Txt(this,x/2 + (x/256 * 5), (y/256 * 105) ,txt3,x,y, 'h2', 31);
+
+      cont = 1
      
-      function con(){
-        tutorial.c1.base.destroy();
-        tutorial.c1.tTxt.txt.destroy();
-        tutorial.c1.button.destroy();
-        cont = 1
-      };
+      // function con(){
+      //   tutorial.c1.base.destroy();
+      //   tutorial.c1.tTxt.txt.destroy();
+      //   tutorial.c1.button.destroy();
+      //   cont = 1
+      // };
       
       var Bullet = new Phaser.Class({
         Extends: Phaser.GameObjects.Image,

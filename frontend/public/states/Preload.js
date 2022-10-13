@@ -29,6 +29,7 @@ var xr = 1905;
 var yr = 917;
 var ratio = ((x/xr)+(y/yr))/2
 var ratioy = (y/yr)/2
+console.log(x,y)
 
 
 export default class Preload extends Phaser.Scene{
@@ -42,24 +43,25 @@ export default class Preload extends Phaser.Scene{
         this.load.image('bullet', bullet);
         this.load.image('tbar',tbar)
 
-        this.load.spritesheet('sti', sti, { frameWidth: 50 , frameHeight: 50 });
-        this.load.spritesheet('cent', cent, { frameWidth: 50 , frameHeight: 50 });
+        this.load.spritesheet('sti', sti, { frameWidth: 500 , frameHeight: 500 });
+        this.load.spritesheet('cent', cent, { frameWidth: 500 , frameHeight: 500 });
         this.load.spritesheet('teclaI', teclaI, { frameWidth: 150, frameHeight: 150});
         this.load.spritesheet('teclaD', teclaD, { frameWidth: 150 , frameHeight: 150});
         this.load.spritesheet('barra', barra, { frameWidth: 150 , frameHeight: 150});
 
         const progressBar = new ProgressBar(this, x, y);
         this.add.existing(progressBar)
+        
     };
 
     create()
     {
-        console.log(cond)
-        
       
-        tutorial.btn1 = this.add.existing(new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', 'Tutorial').setScale(ratio));
+        tutorial.btn1 = this.add.existing(new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'CONTINUAR', 'Tutorial').setScale(ratio));
 
        
-        tutorial.txt1 = new Txt(this, tutorial.btn1.x  , tutorial.btn1.y - ((tutorial.btn1.height * ratioy)*4) ,txt1,x,y, 'h2', 31, 'right')
+        tutorial.txt1 = new Txt(this, tutorial.btn1.x - ((x/256 * 58) ) , tutorial.btn1.y - ((tutorial.btn1.height * ratioy)*6) ,txt1,x,y, 'p', 31, 'right') ;
+
     };
+  
 }

@@ -1,5 +1,7 @@
 
-import { gameState, world } from "../consts/Const";import {txt11 } from "../consts/txt";
+import { gameState, world } from "../consts/Const";0
+import {puntos} from "../states/Autoshaping"
+//import {txt11 } from "../consts/txt";
 import Txt from "../object/Txt";
 var x  = window.innerWidth-15;
 var y =  window.innerHeight-20;
@@ -9,6 +11,11 @@ export default class Final extends Phaser.Scene
 {
     create()
     {
-        gameState.tTxt =  new Txt(this, x/2 - (x/256 * 30) ,y/2 ,txt11,x,y, 'h1', 31, 'center');
+       
+        var dinero = puntos * .01
+        console.log(dinero)
+        const txt11 = `Muchísimas gracias por participar.\n Ganaste $${dinero} pesos.\nTe pedimos que le digas al investigador que ya\n acabaste con el experimento.\n Para salir de pantalla completa \npresiona F11 si usas Windows o Linux o \nCTRL+CMD+f si usas Mac.\n `
+        gameState.tTxt =  new Txt(this, x/2 - (x/256 * 15) ,y/2 ,txt11,x,y, 'h1', 31, 'center');
+
     }
 }

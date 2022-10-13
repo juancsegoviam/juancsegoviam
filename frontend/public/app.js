@@ -20,8 +20,13 @@ console.log(cond)
 
 
 const config = {
-    width: x,
-    height: y,
+    
+    scale: {
+        mode: Phaser.Scale.ENVELOP,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: x,
+        height: y,
+      },
     type: Phaser.Auto,
     //backgroundColor: '#616161',
     physics: {

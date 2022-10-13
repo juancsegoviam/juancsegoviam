@@ -27,10 +27,11 @@
         <div class='col-md-4 mx-auto'>
           <div class='card mt-4 text-center'>
             <h1 class='h4'>
-              Login
+              Información sobre el participante
             </h1>
             <form action="/" method="POST">
               </div>
+              
               <div class='form-group'>
                 <input
                   type='text'
@@ -43,25 +44,38 @@
                   type='text'
                   name="sujeto"
                   class='form-control'
-                  placeholder='ID'
+                  placeholder='Folio'
                 />
+                
               <div class='form-group'>
                 <input
-                  type='text'
-                  name="name"
+                  type='number'
+                  name="age"
                   class='form-control'
-                  placeholder='Nombre'
+                  placeholder='Edad'
                 />
-                <div class='form-group'>
-                  <input
-                    type='number'
-                    name="age"
-                    class='form-control'
-                    placeholder='Edad'
-                  />
+              <select class="container p-1" aria-label="Disabled select example" name="gen">
+                <option selected value="">¿Cuál es su identidad de género actual?</option>
+                <option value="Hombre" >Hombre</option>
+                <option value="Mujer" >Mujer</option>
+                <option value="Otros">Otros</option>
+              </select>
+              <select class="container p-1" aria-label="Disabled select example" name="sex" >
+                  <option selected value="">¿Cuál es el sexo que le asignaron al nacer?</option>
+                  <option value="Masculino" >Masculino</option>
+                  <option value="Femenino" >Femenino</option>
+              </select>
+              <select class="container p-1" aria-label="Disabled select example" name="mano">
+                <option selected value="">Diestro o zurdo</option>
+                <option value="Diestro" >Diestro</option>
+                <option value="Zurdo" >Zurdo</option>
+                <option value="Ambi" >Ambidiestro</option>
+              </select>
+          
+                  
               </div>
               <button class='btn btn-primary btn-block'>
-                Signin
+                Regístrate
               </button>
             </form>
           </div>
@@ -74,7 +88,7 @@
               <div class='col-md-4 mx-auto'>
                 <div class='card mt-4 text-center'>
                   <h1 class='h4'>
-                    Login
+                    Información sobre el participante
                   </h1>
                   <form action="/" method="POST">
                     </div>
@@ -98,23 +112,11 @@
                         class='form-control'
                         placeholder='ID'
                       />
-                      <% if(user.prolific < 1) { %>
+                      <% if(user.sujeto.length <6 || user.sujeto.length >6) { %>
                       <div class="alert alert-danger" role="alert">
                         Introduzca un código valido
                       </div> 
                       <% } %> 
-                    <div class='form-group'>
-                      <input
-                        type='text'
-                        name="name"
-                        class='form-control'
-                        placeholder='Nombre'
-                      />
-                      <% if(user.name < 1) { %>
-                        <div class="alert alert-danger" role="alert">
-                          Introduzca su nombre 
-                        </div> 
-                        <% } %> 
                       <div class='form-group'>
                         <input
                           type='number'
@@ -127,9 +129,41 @@
                             Introduzca su edad
                           </div> 
                           <% } %> 
+                          <select class="container p-1" aria-label="Disabled select example" name="gen">
+                            <option selected value="">¿Cuál es su identidad de género actual?</option>
+                            <option value="Hombre" >Hombre</option>
+                            <option value="Mujer" >Mujer</option>
+                            <option value="Otros">Otros</option>
+                          </select>
+                          <% if(!user.gen) { %>
+                            <div class="alert alert-danger" role="alert">
+                              Introduzca el género con el que se identifica
+                            </div> 
+                            <% } %> 
+                            <select class="container p-1" aria-label="Disabled select example" name="sex" >
+                              <option selected value="">¿Cuál es el sexo que le asignaron al nacer?</option>
+                              <option value="Masculino" >Masculino</option>
+                              <option value="Femenino" >Femenino</option>
+                          </select>
+                          <% if(!user.sex) { %>
+                            <div class="alert alert-danger" role="alert">
+                              Introduzca el sexo asignado al nacer
+                            </div> 
+                            <% } %>   
+                            <select class="container p-1" aria-label="Disabled select example" name="mano">
+                              <option selected value="">Diestro o zurdo</option>
+                              <option value="Diestro" >Diestro</option>
+                              <option value="Zurdo" >Zurdo</option>
+                              <option value="Ambi" >Ambidiestro</option>
+                            </select>
+                            <% if(!user.mano) { %>
+                              <div class="alert alert-danger" role="alert">
+                                Introduzca si es zurdo o diestro
+                              </div> 
+                              <% } %> 
                     </div>
                     <button class='btn btn-primary btn-block'>
-                      Signin
+                      Regístrate
                     </button>
                   </form>
                 </div>

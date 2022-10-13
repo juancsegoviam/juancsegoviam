@@ -2,6 +2,7 @@ const {Router} = require('express');
 let ejs = require('ejs');
 const router = Router();
 const Subject = require('../models/sujetos');
+const { truncate } = require('fs-extra');
 
 
 
@@ -39,10 +40,11 @@ router.post("/", async (req,res) => {
     var exp = req.session.exp;
     var form = req.session.form;
     var user = req.session.user;
+    console.log(req.body)
    
 
     
-    let {cond, sujeto, name, age} = req.body;
+    let {cond, sujeto, age, gen, sex, mano} = req.body;
     if(!(user.cond == "TRC" || user.cond == "TSRC"  )) {
         user.cond = "fail"
         form = "incompleto";
@@ -50,19 +52,19 @@ router.post("/", async (req,res) => {
             form, exp, user, consent
         })
     }
-    else if(!user.sujeto || !user.name || !user.age){
-        
+    else if((user.sujeto.length <6 || user.sujeto.length >6) || !user.age || !user.gen ||  !user.sex || !user.mano){
+   
         form = "incompleto";
         res.render("index", {
             form, exp, user, consent
         })
     }else {
         req.session.form = true;
-        const newSubject = await new Subject({cond,sujeto,name, age});
+        const newSubject = await new Subject({cond,sujeto, age, gen,sex, mano});
         newSubject.save();
       
         user = {}
-        [cond,sujeto, name, age] = ["","","",];
+    
      
         res.redirect("/consent")
     }
@@ -104,7 +106,8 @@ router.post("/consent", async(req,res) => {
     } else{
         await Subject.findOneAndUpdate({sujeto: user.sujeto},
             { consent: con})
-
+            
+        req.session.destroy();
         res.render("cancelo")
     }
 
@@ -118,6 +121,8 @@ router.get("/experiment", async(req,res) => {
     start = req.session.start;
     alert = true
     cond = user.cond;
+    suj = user.sujeto;
+
   
     if(start === undefined){
         start = false;
@@ -125,7 +130,7 @@ router.get("/experiment", async(req,res) => {
         res.redirect("/")
     }
     else{
-        res.render("exp", {cond});
+        res.render("exp", {cond, suj});
     }
     
    
@@ -133,18 +138,60 @@ router.get("/experiment", async(req,res) => {
 
 router.post("/experiment", async(req,res) => {
     user = req.session.user
-    const {puntos, evento, tiempo, fase, start_experiment, end_experiment, iti} = req.body
+    const {
+        start_experiment, 
+        end_experiment, 
+        puntos, 
+        
+        tiempoE, 
+        evento,
+        fase, 
+        iti,
+        trial,
+
+        tiempoM, 
+        move,
+        operants,
+        fasem, 
+        itim,
+        trialm,
+
+        tiempoD, 
+        disparo,
+        position,
+        faseD, 
+        itid,
+        triald,
+    } = req.body
     await Subject.findOneAndUpdate({sujeto: user.sujeto},
         {
+            start_experiment: start_experiment,
+            end_experiment: end_experiment,
             puntos: puntos,
-            tiempo: tiempo,
+            
+            tiempoE: tiempoE,
             evento: evento,
             fase: fase,
             iti: iti,
-            start_experiment: start_experiment,
-            end_experiment: end_experiment }),
-            console.log(puntos,evento, tiempo + " posting");
+            trial: trial,
+
+            tiempoM: tiempoM,
+            move: move,
+            operants:operants,
+            fasem: fasem,
+            itim: itim,
+            trialm: trialm,
+
+            tiempoD: tiempoD,
+            disparo: disparo,
+            position: position,
+            fased: faseD,
+            itid: itid,
+            triald: triald,
+            }),
+            
         res.end()
+        req.session.destroy();
             
         });
 

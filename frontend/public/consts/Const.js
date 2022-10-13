@@ -8,7 +8,10 @@ const tutorial = {
     score: 0
 };
 
-const world = {}
+const world = {
+  x:0,
+  y:0
+}
 
 
 
@@ -68,6 +71,7 @@ export {
     gameState,
     world,
     Bullet,
+
 
 
     tutorial

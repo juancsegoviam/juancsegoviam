@@ -20,6 +20,8 @@ var ratio = ((x/xr)+(y/yr))/2
 
 
 
+
+
 var cont;
 var ratiox = x/xr;
 var ratioy = y/yr
@@ -49,8 +51,8 @@ export default class Tutorial extends Phaser.Scene{
       console.log(tutorial.player)
       tutorial.point = new Phaser.Geom.Rectangle(0, 0, 16, 16);
       tutorial.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: "#FF0000" }});
-      tutorial.circle1 = new Phaser.Geom.Circle(x/2,y/2, 130 * ratio);
-      tutorial.circle2 = new Phaser.Geom.Circle(x/2,y/2, 400 * ratio);
+      tutorial.circle1 = new Phaser.Geom.Circle(x/2,y/2, 110 * ratio);
+      tutorial.circle2 = new Phaser.Geom.Circle(x/2,y/2, 380 * ratio);
       tutorial.teclaI = this.physics.add.sprite((x/256 * 70), (y/256 * 10), 'teclaI').setScale(ratio)
 
       //Instrucciones
@@ -74,7 +76,7 @@ export default class Tutorial extends Phaser.Scene{
         });
         tutorial.teclaI.play('hit',true);
 
-      //Capa 1
+      // Capa 1
       tutorial.c1
       tutorial.c1.base = this.add.graphics();
       tutorial.c1.Mask =  this.add.graphics().setVisible(false);
@@ -88,6 +90,8 @@ export default class Tutorial extends Phaser.Scene{
       this.add.existing(tutorial.c1.button);
       tutorial.c1.tTxt = new Txt(this,x/2 + (x/256 * 5), (y/256 * 105) ,txt3,x,y, 'h2', 31);
 
+
+    
     
 
 

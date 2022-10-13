@@ -47,7 +47,9 @@ var end = 0;
 let pass = 0;
 let test = 0;
 let fase;
-let hola = '123456'
+
+let pass2 = 0;
+
 
 var dataMatrix = {
   puntos: "no puntos",
@@ -223,7 +225,7 @@ export default class TSRC extends Phaser.Scene
         gameState.graphics.strokeCircleShape(gameState.circle2);
         gameState.graphics.fillStyle(0xff00ff);
         gameState.graphics.fillRect(gameState.point.x - 8, gameState.point.y - 8, gameState.point.width, gameState.point.height);
-        gameState.graphics.fillRect(gameState.point2.x - 8, gameState.point2.y - 8, gameState.point2.width, gameState.point2.height);
+        //gameState.graphics.fillRect(gameState.point2.x - 8, gameState.point2.y - 8, gameState.point2.width, gameState.point2.height);
         Phaser.Geom.Circle.CircumferencePoint(gameState.circle1, a, gameState.player);
         Phaser.Geom.Circle.CircumferencePoint(gameState.circle2, a, gameState.point);
 
