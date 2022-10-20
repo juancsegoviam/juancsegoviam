@@ -1,8 +1,7 @@
 const {Router} = require('express');
-let ejs = require('ejs');
 const router = Router();
 const Subject = require('../models/sujetos');
-const { truncate } = require('fs-extra');
+
 
 
 
@@ -13,6 +12,9 @@ const { truncate } = require('fs-extra');
 
 router.get("/", async (req,res) => {
 
+
+
+    console.log(req.session)
     var consent = req.session.consent;
     var exp = req.session.exp;
     var form = req.session.form;
@@ -34,6 +36,14 @@ router.get("/", async (req,res) => {
 })
 
 router.post("/", async (req,res) => {
+    
+    function guidGenerator() {
+        var S4 = function() {
+           return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        };
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+
     req.session.user = req.body;
 
     var consent = req.session.consent;
@@ -41,11 +51,15 @@ router.post("/", async (req,res) => {
     var form = req.session.form;
     var user = req.session.user;
     console.log(req.body)
+    
+
+     req.session.id2 = id2 = guidGenerator() ;
+     console.log(id2)
    
 
     
     let {cond, sujeto, age, gen, sex, mano} = req.body;
-    if(!(user.cond == "TRC" || user.cond == "TSRC"  )) {
+    if(!(user.cond == "EXP" || user.cond == "BCW" || user.cond == "ECA" )) {
         user.cond = "fail"
         form = "incompleto";
         res.render("index", {
@@ -60,7 +74,7 @@ router.post("/", async (req,res) => {
         })
     }else {
         req.session.form = true;
-        const newSubject = await new Subject({cond,sujeto, age, gen,sex, mano});
+        const newSubject = await new Subject({id2,cond,sujeto, age, gen,sex, mano});
         newSubject.save();
       
         user = {}
@@ -94,17 +108,19 @@ router.get("/consent", async(req,res) => {
 router.post("/consent", async(req,res) => {
     var user = req.session.user
     var con = req.body.consent
+    var id2 = req.session.id2
+    console.log(id2)
  
 
     if(con === 'Accepto' ) {
         req.session.start = true
-        await Subject.findOneAndUpdate({sujeto: user.sujeto},
+        await Subject.findOneAndUpdate({id2: id2},
             { consent: con})
     
         
         res.redirect("/experiment");
     } else{
-        await Subject.findOneAndUpdate({sujeto: user.sujeto},
+        await Subject.findOneAndUpdate({id2: id2},
             { consent: con})
             
         req.session.destroy();
@@ -120,16 +136,17 @@ router.get("/experiment", async(req,res) => {
     user = req.session.user
     start = req.session.start;
     alert = true
-    cond = user.cond;
-    suj = user.sujeto;
+   
 
   
-    if(start === undefined){
+    if(start === undefined || user === undefined ){
         start = false;
 
         res.redirect("/")
     }
     else{
+        cond = user.cond;
+        suj = user.sujeto;
         res.render("exp", {cond, suj});
     }
     
@@ -138,56 +155,72 @@ router.get("/experiment", async(req,res) => {
 
 router.post("/experiment", async(req,res) => {
     user = req.session.user
+    id2 = req.session.id2
+    console.log(user)
     const {
         start_experiment, 
         end_experiment, 
         puntos, 
         
+        tiempoT,
         tiempoE, 
         evento,
         fase, 
         iti,
         trial,
+        ref,
 
+        tiempoMT,
         tiempoM, 
         move,
         operants,
         fasem, 
         itim,
         trialm,
+        refm,
 
+        tiempoDT,
         tiempoD, 
         disparo,
         position,
         faseD, 
         itid,
         triald,
+        refd
     } = req.body
-    await Subject.findOneAndUpdate({sujeto: user.sujeto},
+
+    console.log(req.body)
+    await Subject.findOneAndUpdate({id2: id2},
         {
             start_experiment: start_experiment,
             end_experiment: end_experiment,
             puntos: puntos,
             
+            tiempoT1: tiempoT,
             tiempoE: tiempoE,
             evento: evento,
             fase: fase,
             iti: iti,
             trial: trial,
+            ref:ref,
 
+            tiempoT2: tiempoMT,
             tiempoM: tiempoM,
             move: move,
             operants:operants,
             fasem: fasem,
             itim: itim,
             trialm: trialm,
+            refm:refm,
 
+            tiempoT3:tiempoDT,
             tiempoD: tiempoD,
             disparo: disparo,
             position: position,
             fased: faseD,
             itid: itid,
             triald: triald,
+            refd:refd
             }),
             
         res.end()
