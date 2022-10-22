@@ -189,7 +189,7 @@ router.post("/experiment", async(req,res) => {
         refd
     } = req.body
 
-
+    console.log("Empezamos")
     console.log(req.body)
     await Subject.findOneAndUpdate({id2: id2},
         {
