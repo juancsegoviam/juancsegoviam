@@ -227,10 +227,10 @@ router.post("/experiment", async(req,res) => {
     console.log("Antes de destruir")
 
     
-    setTimeout(() => {
+    // setTimeout(() => {
         console.log("antes de destroy");
         req.session.destroy()
-    }, 8000);
+    // }, 8000);
 
     console.log("Ya terminar")
 
