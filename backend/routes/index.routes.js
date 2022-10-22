@@ -189,6 +189,7 @@ router.post("/experiment", async(req,res) => {
         refd
     } = req.body
 
+
     console.log(req.body)
     await Subject.findOneAndUpdate({id2: id2},
         {
@@ -223,12 +224,13 @@ router.post("/experiment", async(req,res) => {
             refd:refd
             },);
 
+    console.log("Antes de destruir")
 
     
-    setTimeout(() => {
+    // setTimeout(() => {
         console.log("antes de destroy");
         req.session.destroy()
-    }, 8000);
+    // }, 5000);
 
     console.log("Ya terminar")
 
