@@ -221,13 +221,22 @@ router.post("/experiment", async(req,res) => {
             itid: itid,
             triald: triald,
             refd:refd
-            }),
-            
-        res.end()
-        req.session.destroy();
-            
+            },);
+
+
+    
+    setTimeout(() => {
+        console.log("antes de destroy");
+        req.session.destroy()
+    }, 8000);
+
+    console.log("Ya terminar")
+
+
+       
         });
 
+    
         
 
 
