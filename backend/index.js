@@ -8,7 +8,7 @@ if(process.env.NODE_ENV != 'production'){
     ///Intializations
     
     const app = express();
-    require('./database')
+    
     
     
     //Settings
@@ -32,9 +32,9 @@ if(process.env.NODE_ENV != 'production'){
         session({
         secret: 'mySecret',
         resave: false,
-        name: "ucompany",
         saveUninitialized: false,
-          // store: new MongoStore({ mongoUrl: process.env.MONGODB_URI}),
+        store: new MongoStore({ 
+          mongoUrl: process.env.MONGODB_URI}),
         })
       );
 
@@ -52,9 +52,10 @@ if(process.env.NODE_ENV != 'production'){
     
     //routes
     
+    
     const router = require("./routes/index.routes");
-    const sujetos = require('./models/sujetos');
-const { default: mongoose } = require('mongoose');
+
+    
     
     app.use(router)
     
@@ -63,6 +64,7 @@ const { default: mongoose } = require('mongoose');
     
     
     //Start the server
+    require('./database')
     app.listen(app.get('port'), () => {
         console.log('sever on port', app.get('port'))
     });

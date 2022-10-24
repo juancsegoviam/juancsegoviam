@@ -93,6 +93,8 @@ router.get("/consent", async(req,res) => {
         var date = new Date
         const [month,day,year] = [date.getMonth() + 1, date.getDate(), date.getFullYear()]
         res.render("consent", {user, month, day, year, warning})
+        
+
     
 
     } else {
@@ -109,6 +111,7 @@ router.post("/consent", async(req,res) => {
     var user = req.session.user
     var con = req.body.consent
     var id2 = req.session.id2
+    
     console.log(id2)
  
 
