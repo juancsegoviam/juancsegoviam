@@ -4,6 +4,39 @@ const Subject = require('../models/sujetos');
 
 
 
+function roughSizeOfObject( object ) {
+
+    var objectList = [];
+    var stack = [ object ];
+    var bytes = 0;
+
+    while ( stack.length ) {
+        var value = stack.pop();
+
+        if ( typeof value === 'boolean' ) {
+            bytes += 4;
+        }
+        else if ( typeof value === 'string' ) {
+            bytes += value.length * 2;
+        }
+        else if ( typeof value === 'number' ) {
+            bytes += 8;
+        }
+        else if
+        (
+            typeof value === 'object'
+            && objectList.indexOf( value ) === -1
+        )
+        {
+            objectList.push( value );
+
+            for( var i in value ) {
+                stack.push( value[ i ] );
+            }
+        }
+    }
+    return bytes;
+}
 
 
 
@@ -160,7 +193,7 @@ router.post("/experiment", async(req,res) => {
     user = req.session.user
     id2 = req.session.id2
     console.log(user)
-    const {
+    var {
         start_experiment, 
         end_experiment, 
         puntos, 
@@ -191,6 +224,43 @@ router.post("/experiment", async(req,res) => {
         triald,
         refd
     } = req.body
+
+   const data = {
+        start_experiment, 
+        end_experiment, 
+        puntos, 
+        
+        tiempoT,
+        tiempoE, 
+        evento,
+        fase, 
+        iti,
+        trial,
+        ref,
+
+        tiempoMT,
+        tiempoM, 
+        move,
+        operants,
+        fasem, 
+        itim,
+        trialm,
+        refm,
+
+        tiempoDT,
+        tiempoD, 
+        disparo,
+        position,
+        faseD, 
+        itid,
+        triald,
+        refd
+    } 
+     var size= roughSizeOfObject(data)
+
+     console.log(size)
+
+    
 
     console.log("Empezamos")
     console.log(req.body)

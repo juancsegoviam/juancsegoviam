@@ -40,14 +40,16 @@ if(process.env.NODE_ENV != 'production'){
 
   
     
-    app.use(express.urlencoded({ extended: false }));
+    app.use(express.urlencoded({ extended: false ,limit: "50mb" }));
     app.use(morgan('dev'));
     app.use(flash());
     
     
     
     app.use(express.json({
-      type: ['application/json', 'text/plain']
+      type: ['application/json', 'text/plain'],
+      limit: "50mb"
+      
     }))
     
     //routes
