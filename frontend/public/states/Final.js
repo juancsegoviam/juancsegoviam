@@ -1,9 +1,13 @@
 
 import { gameState, world } from "../consts/Const";0
-import {puntos} from "../states/Autoshaping"
-import {puntes} from "../states/Backward"
-import {puntis} from "../states/ECalone"
-//import {txt11 } from "../consts/txt";
+import {puntos} from "../states/Autoshaping";
+import {puntes} from "../states/Backward";
+import {puntis} from "../states/ECalone";
+import {puntos2} from "../states/Anterogrado"
+import {puntes2} from "../states/Retrogrado"
+import {puntis2} from "../states/ECsolo"
+
+
 import Txt from "../object/Txt";
 var x  = window.innerWidth-15;
 var y =  window.innerHeight-20;
@@ -22,6 +26,15 @@ export default class Final extends Phaser.Scene
             break;
         case "ECA":
             var dinero = puntis * .01
+            break;
+        case "ANT":
+            var dinero = puntos2 * .01
+            break;
+        case "RET":
+            var dinero = puntes2 * .01
+            break;
+        case "ECS":
+            var dinero = puntis2 * .01
             break;
 
        }

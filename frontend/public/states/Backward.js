@@ -106,7 +106,7 @@ var puntes ;
 var deg;
 
 
-export default class Autoshaping extends Phaser.Scene
+export default class Backward extends Phaser.Scene
 {
     create()
     {

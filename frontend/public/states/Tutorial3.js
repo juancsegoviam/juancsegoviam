@@ -209,10 +209,22 @@ if(cont === 1)
       tutorial.cc.bMask2 = tutorial.cc.Mask.createGeometryMask().setInvertAlpha(true);
       tutorial.cc.base.setMask(tutorial.cc.bMask);
       tutorial.cc.base.fillStyle(0x000000).fillRect(0, 0, x, y).setAlpha(0.8);
-   
+
+
+      var exp;
+
+      switch(cond){
+        case "EXP" || "BCW" || "ECA":
+          exp =  "Tutorial4";
+          break;
+        case "ANT" || "RET" || "ECS":
+          exp =  "Tutorial42";
+          break;
+  
+      }
     
       
-      const button = new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', "Tutorial4" ).setScale(ratio);
+      const button = new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', exp).setScale(ratio);
       this.add.existing(button)
       
         

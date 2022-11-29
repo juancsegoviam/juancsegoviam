@@ -106,7 +106,7 @@ var puntis ;
 var deg;
 
 
-export default class Autoshaping extends Phaser.Scene
+export default class ECalone extends Phaser.Scene
 {
     create()
     {
