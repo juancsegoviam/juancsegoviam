@@ -298,7 +298,7 @@ if(cont === 1)
         case "RET":
           exp =  "Retrogrado";
           break;
-        case "ECs":
+        case "ECS":
           exp = "ECsolo";
           break;
       }
