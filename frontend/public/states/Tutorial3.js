@@ -193,6 +193,7 @@ if(cont === 1)
       bullet.fire(tutorial.point.x, tutorial.point.y);
       lastFired = 50;
       c = c + 1
+
     };
   };
 }
@@ -214,16 +215,20 @@ if(cont === 1)
       var exp;
 
       switch(cond){
-        case "EXP" || "BCW" || "ECA":
+        case "EXP":
+        case "BCW":
+        case "ECA":
           exp =  "Tutorial4";
           break;
-        case "ANT" || "RET" || "ECS":
+        case "ANT":
+        case "RET": 
+        case "ECS":
           exp =  "Tutorial42";
           break;
   
       }
     
-      
+      console.log(exp)
       const button = new CustomButton(this, x/2 , y/2 + 50, 'button1','button2', 'button3', 'Continuar', exp).setScale(ratio);
       this.add.existing(button)
       

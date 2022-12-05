@@ -883,7 +883,7 @@ export default class ECalone extends Phaser.Scene
 
   
       this.scene.start('Final');
-      this.scene.stop('ECalone');
+      this.scene.stop('ECsolo');
       
       
 
