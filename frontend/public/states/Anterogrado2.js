@@ -97,8 +97,8 @@ var shoot = {
 var listIti = [307,950,1643,2394,3213,4115,5117,6245,7535,9042,10854,13128,16187,20896,33372];
 var listP = [307,950,1643,2394,3213,4115,5117,6245,7535,9042,10854,13128,16187,20896,33372];
 var listmag =[967,3241,6299,11008,23485]
-const stiDur = 6000; 
-const reiDur = 3000;
+const stiDur = 3000; 
+const reiDur = 6000;
 //anterogrado = 1, retrogrado = 2
 const arreglo = 1;
 const dem = 0;
