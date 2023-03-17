@@ -2,7 +2,7 @@ import Phaser from "phaser";
 
 //Constantes
 import {tutorial} from "../consts/Const"
-import {txt3,txt4,txt5,txt6 } from "../consts/txt";
+import {txt3,txt4,txt5,txt6,txt10 } from "../consts/txt";
 
 //Objetos
 import Txt from "../object/Txt";
@@ -213,20 +213,24 @@ if(cont === 1)
 
 
       var exp;
+      var text
 
       switch(cond){
         case "EXP":
         case "BCW":
         case "ECA":
           exp =  "Tutorial4";
+          text = txt6;
           break;
         case "ANT":
         case "RET": 
         case "ECS":
           exp =  "Tutorial42";
+          text = txt6;
           break;
         case "ANT2":
           exp = "Anterogrado2"
+          text = txt10;
   
       }
     
@@ -236,7 +240,7 @@ if(cont === 1)
       
         
     
-      tutorial.cc.txt = new Txt(this, button.x , button.y - ((button.height * ratio)*2.0) ,txt6,x,y, 'h2', 31, 'right')
+      tutorial.cc.txt = new Txt(this, button.x - (x/256 * 6), button.y - ((button.height * ratio)*3.0) ,text,x,y, 'h2', 31, 'right')
        
 
     }
