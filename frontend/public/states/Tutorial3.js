@@ -225,6 +225,8 @@ if(cont === 1)
         case "ECS":
           exp =  "Tutorial42";
           break;
+        case "ANT2":
+          exp = "Anterogrado2"
   
       }
     
