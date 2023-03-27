@@ -13,6 +13,7 @@ import Backward from './states/Backward.js';
 import Final from './states/Final.js';
 import ECalone from './states/ECalone'
 import Anterogrado2 from './states/Anterogrado2';
+import Anterogrado2C from './states/Anterogrado2C';
 
 
 
@@ -57,6 +58,7 @@ game.scene.add('Tutorial3', Tutorial3);
 game.scene.add('Autoshaping', Autoshaping);
 game.scene.add('Anterogrado', Anterogrado);
 game.scene.add('Anterogrado2', Anterogrado2);
+game.scene.add('Anterogrado2C', Anterogrado2C);
 game.scene.add('Retrogrado', Retrogrado);
 game.scene.add('ECsolo', ECsolo);
 game.scene.add('Tutorial4', Tutorial4);

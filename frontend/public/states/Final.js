@@ -7,6 +7,7 @@ import {puntos2} from "../states/Anterogrado"
 import {puntes2} from "../states/Retrogrado"
 import {puntis2} from "../states/ECsolo"
 import {puntos3} from "../states/Anterogrado2"
+import {puntes3} from "../states/Anterogrado3"
 
 
 import Txt from "../object/Txt";
@@ -39,6 +40,9 @@ export default class Final extends Phaser.Scene
             break;
         case "ANT2":
             var dinero = puntos3 * .01
+            break;
+        case "ANTC":
+            var dinero = puntes3 * .01
             break;
 
        }

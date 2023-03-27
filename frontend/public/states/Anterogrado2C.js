@@ -1,6 +1,6 @@
 import { gameState, Bullet } from "../consts/Const";
 
-import {txt9, txt13 } from "../consts/txt";
+import {txt9, txt13,txt15 } from "../consts/txt";
 
 //Objetos
 import Txt from "../object/Txt";
@@ -14,6 +14,8 @@ var yr = 917;
 var ratio = ((x/xr)+(y/yr))/2
 
 
+gameState.score = 2000;
+
 
 
 
@@ -22,10 +24,12 @@ let bullets;
 let lastFired;
 let initTime;
 let initTime2;
+let initTime3;
 let expTime;
 let a = 0;
 let elapsedTime;
 let elapsedTime2;
+let elapsedTime3;
 let intervol;
 var index;
 
@@ -97,7 +101,7 @@ var shoot = {
 var listIti = [307,950,1643,2394,3213,4115,5117,6245,7535,9042,10854,13128,16187,20896,33372];
 var listP = [307,950,1643,2394,3213,4115,5117,6245,7535,9042,10854,13128,16187,20896,33372];
 var listmag =[967,3241,6299,11008,23485]
-const stiDur = 3000; 
+const stiDur = 6000; 
 const reiDur = 3000;
 //anterogrado = 1, retrogrado = 2
 const arreglo = 1;
@@ -105,7 +109,7 @@ const dem = 0;
 const ensayos = listIti.length;
 const pruebas = listP.length;
 const comedero = listmag.length;
-var puntos3 ;
+var puntes3 ;
 var deg;
 
 
@@ -265,6 +269,8 @@ export default class Autoshaping extends Phaser.Scene
 
           gameState.centAct.active = false;
 
+          
+
           gameState.centDeact = this.physics.add.collider(gameState.cent, bullets, (reinforcer,bullet) => 
           {
 
@@ -284,6 +290,8 @@ export default class Autoshaping extends Phaser.Scene
            else if(fase == "Mag"){
             eventos.trial.push(pass3 + 1)}  
            });
+
+   
 
          
          this.timer();
@@ -391,6 +399,13 @@ export default class Autoshaping extends Phaser.Scene
     }
 
     
+    
+    privation(){
+      gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);
+      gameState.score -= 10; 
+   
+
+     }
 
     trialI(x,trial){
       gameState.sti.play('hit', true);
@@ -678,7 +693,8 @@ export default class Autoshaping extends Phaser.Scene
       fase = "Mag"
       
       initTime = new Date().getTime();
-      initTime2 = new Date().getTime()
+      initTime2 = new Date().getTime();
+      initTime3 = new Date().getTime();
       expTime = new Date(initTime)
       console.log(expTime)
       
@@ -741,12 +757,22 @@ export default class Autoshaping extends Phaser.Scene
               case 1:
                   elapsedTime = new Date().getTime() -initTime;
                   elapsedTime2 = new Date().getTime() -initTime2;
-                 
+                  elapsedTime3 = new Date().getTime() -initTime3;
+
+
+                      if(["Adq", "Mag"].includes(fase)){
+                        switch(true){
+                          case elapsedTime3 > 2000:
+                            that.privation();
+                            initTime3 = new Date().getTime();
+                        }
+                      }
            
                   switch(fase){
                     case "Adq":
 
                       switch(true){
+                        
                         case elapsedTime < time1 :
                           ref = "iti";
                           x = 1;
@@ -873,7 +899,10 @@ export default class Autoshaping extends Phaser.Scene
                   switch(fase){
                     case "Mag":
 
+
                       switch(true){
+
+
                         case elapsedTime < time1 :
                           ref = "iti";
                           x = 1;
@@ -1026,6 +1055,6 @@ export default class Autoshaping extends Phaser.Scene
 }
 
 
-export{puntos3}
+export{puntes3}
 
 

@@ -25,8 +25,10 @@ const txt8 = "Si aciertas, ganarás\n10 puntos = $0.01 pesos.\n Intenta ganar 20
 const txt9 = "Puntos: 0";
 const txt10 = "Ahora accederás al experimento.\nCualquier duda que tengas díselo a la persona\nencargada. Cuando estés listo presione\n el botón de inciar."
 const txt11 = `Muchísimas gracias por participar.\n Ganaste ${puntos} puntos\n Te pedimos que le digas al investigador que ya\n acabaste con el experimento.`
-const txt12 = "+100 puntos" 
-const txt13 = "+10 puntos"
+const txt12 = "+100 puntos"; 
+const txt13 = "+10 puntos";
+const txt15 = "-100 puntos";
+
          
 
 export {
@@ -43,7 +45,8 @@ export {
     txt10,
     txt11, 
     txt12, 
-    txt13
+    txt13,
+    txt15
     
 }
 
