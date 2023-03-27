@@ -7,7 +7,7 @@ import {puntos2} from "../states/Anterogrado"
 import {puntes2} from "../states/Retrogrado"
 import {puntis2} from "../states/ECsolo"
 import {puntos3} from "../states/Anterogrado2"
-import {puntes3} from "../states/Anterogrado3"
+import {puntes3} from "../states/Anterogrado2C"
 
 
 import Txt from "../object/Txt";
