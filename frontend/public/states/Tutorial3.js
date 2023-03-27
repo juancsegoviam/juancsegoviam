@@ -231,9 +231,11 @@ if(cont === 1)
         case "ANT2":
           exp = "Anterogrado2"
           text = txt10;
-        case "ANTC":
+          break;
+        case "PRV":
           exp = "Anterogrado2C"
           text = txt10;
+          break;
       }
     
       console.log(exp)
