@@ -41,7 +41,7 @@ export default class Final extends Phaser.Scene
         case "ANT2":
             var dinero = puntos3 * .01
             break;
-        case "ANTC":
+        case "PRV":
             var dinero = puntes3 * .01
             break;
 

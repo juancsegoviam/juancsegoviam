@@ -14,7 +14,7 @@ var yr = 917;
 var ratio = ((x/xr)+(y/yr))/2
 
 
-gameState.score = 2000;
+gameState.score = 4650;
 
 
 
@@ -101,7 +101,7 @@ var shoot = {
 var listIti = [307,950,1643,2394,3213,4115,5117,6245,7535,9042,10854,13128,16187,20896,33372];
 var listP = [307,950,1643,2394,3213,4115,5117,6245,7535,9042,10854,13128,16187,20896,33372];
 var listmag =[967,3241,6299,11008,23485]
-const stiDur = 6000; 
+const stiDur = 3000; 
 const reiDur = 3000;
 //anterogrado = 1, retrogrado = 2
 const arreglo = 1;
@@ -236,6 +236,7 @@ export default class Autoshaping extends Phaser.Scene
            bullet.destroy();
          
            gameState.score += 10; 
+           console.log(gameState.score)
            gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);
            gameState.tTxt4 =  new Txt(this, gameState.cent.x  , gameState.cent.y ,txt13,x,y, 'h2', 31, 'center');
            Phaser.Geom.Circle.CircumferencePoint(gameState.circle2, 5,  gameState.tTxt4.txt);
@@ -403,6 +404,8 @@ export default class Autoshaping extends Phaser.Scene
     privation(){
       gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);
       gameState.score -= 10; 
+      eventos.puntos = gameState.score
+      
    
 
      }
@@ -482,6 +485,8 @@ export default class Autoshaping extends Phaser.Scene
       eventos.trial.push(trial + 1);
       move.trial.push(trial + 1);
       shoot.trial.push(trial  + 1);
+
+      console.log(gameState.score)
     };
 
     ecEnd(x,trial){
@@ -759,10 +764,12 @@ export default class Autoshaping extends Phaser.Scene
                   elapsedTime2 = new Date().getTime() -initTime2;
                   elapsedTime3 = new Date().getTime() -initTime3;
 
+                  gameState.tTxt3.txt.setText(`Puntos: ${gameState.score}`);
 
-                      if(["Adq", "Mag"].includes(fase)){
+
+                      if(["Adq", "Mag","Test"].includes(fase)){
                         switch(true){
-                          case elapsedTime3 > 2000:
+                          case elapsedTime3 > 1000:
                             that.privation();
                             initTime3 = new Date().getTime();
                         }
@@ -1030,7 +1037,7 @@ export default class Autoshaping extends Phaser.Scene
       fetch('/experiment', options);
 
 
-      puntos3=eventos.puntos;
+      puntes3=eventos.puntos;
       console.log(eventos,move,shoot)
       console.log('ya estuvo');
       
