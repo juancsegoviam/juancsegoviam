@@ -92,7 +92,7 @@ router.post("/", async (req,res) => {
 
     
     let {cond, sujeto, age, gen, sex, mano} = req.body;
-    if(!(user.cond == "EXP" || user.cond == "BCW" || user.cond == "ECA" || user.cond == "ANT" || user.cond == "RET" || user.cond == "ECS" || user.cond == "ANT2"|| user.cond == "PRV")) {
+    if(!(user.cond == "EXP" || user.cond == "BCW" || user.cond == "ECA" || user.cond == "ANT" || user.cond == "RET" || user.cond == "ECS" )) {
         user.cond = "fail"
         form = "incompleto";
         res.render("index", {

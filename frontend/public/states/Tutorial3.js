@@ -228,14 +228,6 @@ if(cont === 1)
           exp =  "Tutorial42";
           text = txt6;
           break;
-        case "ANT2":
-          exp = "Anterogrado2"
-          text = txt10;
-          break;
-        case "PRV":
-          exp = "Anterogrado2C"
-          text = txt10;
-          break;
       }
     
       console.log(exp)
