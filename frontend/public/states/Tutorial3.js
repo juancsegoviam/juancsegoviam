@@ -228,6 +228,14 @@ if(cont === 1)
           exp =  "Tutorial42";
           text = txt6;
           break;
+        case "NMG":
+          exp = "Anterogrado"
+          text= txt10;
+          break
+        case "IND":
+          exp = "Independent"
+          text = txt10;
+          break
       }
     
       console.log(exp)

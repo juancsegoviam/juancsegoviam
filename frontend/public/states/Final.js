@@ -3,9 +3,10 @@ import { gameState, world } from "../consts/Const";0
 import {puntos} from "../states/Autoshaping";
 import {puntes} from "../states/Backward";
 import {puntis} from "../states/ECalone";
-import {puntos2} from "../states/Anterogrado"
-import {puntes2} from "../states/Retrogrado"
-import {puntis2} from "../states/ECsolo"
+import {puntos2} from "../states/Anterogrado";
+import {puntes2} from "../states/Retrogrado";
+import {puntis2} from "../states/ECsolo";
+import { puntos_ind } from "./Independent";
 
 
 
@@ -36,6 +37,12 @@ export default class Final extends Phaser.Scene
             break;
         case "ECS":
             var dinero = puntis2 * .01
+            break;
+        case "NMG":
+            var dinero = puntos2 * .01
+            break;
+        case "IND":
+            var dinero = puntos_ind * .01
             break;
 
        }
