@@ -13,6 +13,7 @@ import Backward from './states/Backward.js';
 import Final from './states/Final.js';
 import ECalone from './states/ECalone'
 import Independent from "./states/Independent"
+import I_Retrogrado from './states/I_Retrogrado.js';
 
 
 
@@ -63,6 +64,7 @@ game.scene.add('Final',Final);
 game.scene.add('Backward', Backward)
 game.scene.add('ECalone', ECalone)
 game.scene.add('Independent', Independent)
+game.scene.add('I_Retrogrado', I_Retrogrado)
 
 
 

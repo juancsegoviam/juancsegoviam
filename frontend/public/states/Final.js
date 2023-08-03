@@ -7,6 +7,7 @@ import {puntos2} from "../states/Anterogrado";
 import {puntes2} from "../states/Retrogrado";
 import {puntis2} from "../states/ECsolo";
 import { puntos_ind } from "./Independent";
+import { puntos_ind_ret } from "./I_Retrogrado";
 
 
 
@@ -43,6 +44,9 @@ export default class Final extends Phaser.Scene
             break;
         case "IND":
             var dinero = puntos_ind * .01
+            break;
+        case "IRE":
+            var dinero = puntos_ind_ret* .01
             break;
 
        }

@@ -236,6 +236,14 @@ if(cont === 1)
           exp = "Independent"
           text = txt10;
           break
+        case "IRE":
+          exp="I_Retrogrado"
+          text = txt10;
+          break
+        case "EC2":
+          exp = "ECsolo";
+          text = txt10;
+          break;
       }
     
       console.log(exp)
