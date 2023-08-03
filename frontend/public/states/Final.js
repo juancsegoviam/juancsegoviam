@@ -40,7 +40,7 @@ export default class Final extends Phaser.Scene
             var dinero = puntis2 * .01
             break;
         case "EC2":
-            var dinero = puntis2 * .01
+            var dinero = 15
             break;
         case "NMG":
             var dinero = puntos2 * .01
